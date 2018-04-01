@@ -1,0 +1,72 @@
+  .content_div_in_tools {
+  width: 100%;
+  height: auto;
+ 
+  display: table;
+  }
+
+  
+.right {
+	display: table-cell;
+	vertical-align: top;
+	background-color: #972337;
+}
+
+.left {
+	display: table-cell;
+	 vertical-align: top;
+	width:200px;
+	padding-top: 20px;
+	background-color: #972337;
+}
+  
+
+  .left_content{
+  float: left;
+    width: 60%;
+	background-color: #972337;
+  }
+
+  .right_content{
+   overflow: hidden;
+    width: 40%;
+	background-color: #972337;
+  }
+
+  .ui-menu { width: 150px;}
+  
+ background-color: #a80820;
+  
+  #menu{
+  font-size: 1em;
+
+  }
+  
+  .ui-menu-item {
+	font-size: 1em;
+  }
+  
+  #error_area{
+  display:none;
+  border-style: none;
+  }
+  
+.classic_container{
+	
+	margin-top: 30px;
+}
+
+.cell_changed option{
+	
+	background: #a80820;
+}
+
+.cell_changed {
+	background: #a80820;
+}
+
+.txt_change {
+	background-color: #a80820;
+}
+
+  

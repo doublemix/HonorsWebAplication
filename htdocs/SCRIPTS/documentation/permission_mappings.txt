@@ -1,0 +1,25 @@
+perm_admin - 0
+
+perm_worker - 1 - *
+
+perm_users - 2 - *
+
+perm_fdg - 3 - *
+
+perm_exemptions - 4 - *
+
+perm_academic_events - 5 - *
+
+perm_activity_groups - 6 - *
+
+perm_comm_serv - 7 - *
+
+perm_pif - 8 - *
+
+perm_image_slides - 9 - *
+
+perm_events - 10 - *
+
+perm_news - 11 - *
+
+perm_stats - 12 - *
