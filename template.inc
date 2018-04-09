@@ -1,5 +1,5 @@
 <?php
-/*	
+/*
 *	template.inc
 *
 *	Created by: William Grove:
@@ -13,13 +13,14 @@ function HTML_StartHead(){
 		echo "<!DOCTYPE html>\n";
 		echo "<html>\n";
 		echo "<head>\n";
+        echo "<meta charset='UTF-8'>";
 }
 
 function AddTitle( $title ){
 		echo "<title>".$title."</title>\n";
 }
 
-function AddCSS( $cssfile ){	
+function AddCSS( $cssfile ){
 	echo "<link href=\"CSS/".$cssfile."\" rel=\"stylesheet\" media=\"screen\">\n";
 }
 
@@ -34,15 +35,15 @@ function HTML_StartBody(){
 function Body_CreateSideNav(){
   echo "<div id=\"mySidenav\" class=\"sidenav\">\n";
   echo "<a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">x</a>\n";
-  echo "<a href=\"calendar.php\">Calendar</a>\n";		
-  echo "<a href=\"#\">Documents</a>\n";		
+  echo "<a href=\"calendar.php\">Calendar</a>\n";
+  echo "<a href=\"#\">Documents</a>\n";
   if (!isset($_SESSION["username"])){
 	echo "<a href=\"login.php\">Login</a>\n";
   } else {
   	if($_SESSION["status"] == 1 || $_SESSION["status"] == 2 || $_SESSION["status"] == 5){
 		echo "<a href=\"tools.php\">Tools</a>\n";
   	}
-	
+
 	echo "<a href=\"logout.php\" onclick=\"return acceptLogout();\">Log Out</a>\n";
   }
   echo "</div>\n";
@@ -66,17 +67,17 @@ function Body_CreateStickyNav(){
 	if (!isset($_SESSION["username"])){
 		echo "<li><a href=\"login.php\">Login</a></li>\n";
 	} else {
-		
+
 		if($_SESSION["status"] == 1 || $_SESSION["status"] == 2 || $_SESSION["status"] == 5){
 		echo "<li><a href=\"tools.php\">Tools</a></li>\n";
 		echo "<li><a href=\"stats.php\">Stats</a></li>\n";
 		}
-		
+
 		echo "<li><a href=\"logout.php\">Log out</a></li>\n";
 		echo "<div class=\"dropdown-content\">";
-		
+
 		if($_SESSION["status"] == 2){
-		
+
 		echo "<a href=\"stats.php\">Stats</a>";
 
 		}
