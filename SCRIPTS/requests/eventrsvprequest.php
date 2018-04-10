@@ -34,9 +34,19 @@ if (isset($_POST["eventrsvprequest"])) {
             return;
         }
 
+        $eventsTable = DB_getPrefixedTable("academicevents");
+        $event = DB_executeAndFetchOne("SELECT acad_start_date FROM $eventsTable WHERE acad_id = $event_id LIMIT 1");
+        $startDate = new \DateTimeImmutable($event['acad_start_date']);
+
+        if ($startDate < new \DateTimeImmutable()) {
+            finishRequest('Cannot RSVP for event which has already occured');
+            return;
+        }
+
         $currentstudentsTable = DB_getPrefixedTable("currentstudents");
         $pstuIdQuery = "SELECT pstu_id FROM $currentstudentsTable WHERE pstu_id = $user_id LIMIT 1";
         $pstuId = DB_executeAndFetchOne($pstuIdQuery)["pstu_id"];
+
 
         if ($pstuId === false) {
             finishRequest("User is not current student");
