@@ -2,22 +2,28 @@
 
 require_once 'db_connect.inc';
 
-$db_util_conn = DBConnect();
+$conn = DBConnect();
+
+function DB_executeQuery ($sql) {
+    global $conn;
+    return $conn->query($sql);
+}
 
 function DB_executeAndFetchOne ($sql, $fetchMode = MYSQLI_ASSOC) {
-    global $db_util_conn;
-    $result = $db_util_conn->query($sql);
+    global $conn;
+    $result = $conn->query($sql);
     if ($result === false) {
-        throw new \Exception($db_util_conn->error);
+        throw new \Exception($conn->error);
     }
     return $result->fetch_array($fetchMode);
 }
 
 function DB_executeAndFetchAll ($sql, $fetchMode = MYSQLI_ASSOC) {
-    global $db_util_conn;
-    $result = $db_util_conn->query($sql);
+    global $conn;
+    $result = $conn->query($sql);
     if ($result === false) {
-        throw new \Exception($db_util_conn->error);
+        echo $conn->error;
+        throw new \Exception($conn->error);
     }
     return $result->fetch_all($fetchMode);
 }
