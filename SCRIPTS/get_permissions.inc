@@ -67,5 +67,25 @@ function getPermissions($conn){
 	return true;
 }
 
+/**
+ * Check if a user has permissions set. The function returns true if the user has the given permission.
+ * If an array is passed, the function only returns true if all of the permissions are granted.
+ * @param int|array $permission
+ */
+function hasPermission($permission) {
+    if (!isset($_SESSION["permissions"])) {
+        return false;
+    } else if (is_array($permission)) {
+        foreach ($permission as $indPermission) {
+            if (!hasPermission($indPermission)) {
+                return false;
+            }
+        }
+        return true;
+    } else {
+        return $_SESSION["permissions"][$permission] == 1;
+    }
+}
+
 
 ?>
