@@ -34,8 +34,13 @@ function DB_getCurrentPrefix () {
 
     return $result[0];
 }
-function DB_getPrefixedTable($tableName) {
-    $prefix = DB_getCurrentPrefix();
+function DB_getPrefixedTable($tableName, $prefix = null) {
+    $prefix = $prefix === null ? DB_getCurrentPrefix() : $prefix;
     return "{$prefix}_{$tableName}";
+}
+
+function DB_tableExists($tableName) {
+    $tables = DB_executeAndFetchAll("SHOW TABLES LIKE '$table'");
+    return count($tables) > 0;
 }
 ?>

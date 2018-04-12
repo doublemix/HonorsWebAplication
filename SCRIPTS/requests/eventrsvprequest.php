@@ -23,12 +23,11 @@ if (isset($_POST["eventrsvprequest"])) {
     }
 
     $opcode = filter_input(INPUT_POST, "opcode");
+    $user_id = intval($_SESSION["userid"]);
+
 
     if ($opcode === "add-rsvp") {
-
         $event_id = filter_input(INPUT_POST, "event_id", FILTER_VALIDATE_INT);
-        $user_id = intval($_SESSION["userid"]);
-
         if ($event_id === false || $event_id === null || $user_id === null) {
             finishRequest("Malformed request");
             return;
@@ -47,7 +46,6 @@ if (isset($_POST["eventrsvprequest"])) {
         $pstuIdQuery = "SELECT pstu_id FROM $currentstudentsTable WHERE pstu_id = $user_id LIMIT 1";
         $pstuId = DB_executeAndFetchOne($pstuIdQuery)["pstu_id"];
 
-
         if ($pstuId === false) {
             finishRequest("User is not current student");
             return;
@@ -62,6 +60,53 @@ if (isset($_POST["eventrsvprequest"])) {
             finishRequest();
             return;
         }
+    } else if ($opcode === 'attend') {
+
+        if (!hasPermission(PERM_ADMIN)) {
+            finishRequest("Insufficient permissions");
+            return;
+        }
+
+        $prefix = filter_input(INPUT_POST, 'prefix');
+        $rsvpId = filter_input(INPUT_POST, 'rsvp_id', FILTER_VALIDATE_INT);
+        $acadId = filter_input(INPUT_POST, 'acad_id', FILTER_VALIDATE_INT);
+        $pstuId = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
+
+        $rsvpTable = DB_getPrefixedTable('cce_rsvp', $prefix);
+        if (!DB_tableExists($rsvpTable)) {
+            finishRequest("This semester does not support RSVPs");
+            return;
+        }
+
+        DB_executeQuery("DELETE FROM $rsvpTable WHERE rsvp_id = $rsvpId LIMIT 1");
+
+        $attendenceTable = DB_getPrefixedTable('academicevent_attendence', $prefix);
+        DB_executeQuery("INSERT INTO $attendenceTable(acad_id, pstu_id) VALUES ('$acadId', '$pstuId')");
+
+        finishRequest();
+        return;
+
+    } else if ($opcode === 'delete') {
+
+        if (!hasPermission(PERM_ADMIN)) {
+            finishRequest("Insufficient permissions");
+            return;
+        }
+
+        $prefix = filter_input(INPUT_POST, 'prefix');
+        $rsvpId = filter_input(INPUT_POST, 'rsvp_id', FILTER_VALIDATE_INT);
+
+        $rsvpTable = DB_getPrefixedTable('cce_rsvp', $prefix);
+        if (!DB_tableExists($rsvpTable)) {
+            finishRequest("This semester does not support RSVPs");
+            return;
+        }
+
+        DB_executeQuery("DELETE FROM $rsvpTable WHERE rsvp_id = $rsvpId LIMIT 1");
+
+        finishRequest();
+        return;
+
     } else {
         finishRequest("Unknown opcode");
         return;
