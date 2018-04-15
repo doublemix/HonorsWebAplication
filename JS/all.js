@@ -18,12 +18,19 @@ function closeNav() {
 }
 
 function sticky_relocate() {
-    var window_top = $(window).scrollTop();
-    var div_top = $('#sticky-anchor').offset().top;
-    if (window_top > div_top)
-        $('#navbar').addClass('sticky');
-    else
-        $('#navbar').removeClass('sticky');
+    const navBar = $('#navbar');
+    const stickyAnchor = $('#sticky-anchor');
+
+    const window_top = $(window).scrollTop();
+    const div_top = stickyAnchor.offset().top;
+
+    if (window_top > div_top) {
+        stickyAnchor.height(navBar.height());
+        navBar.addClass('sticky');
+    } else {
+        stickyAnchor.height(0);
+        navBar.removeClass('sticky');
+    }
 }
 
 $(function() {
