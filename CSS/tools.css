@@ -1,11 +1,11 @@
   .content_div_in_tools {
   width: 100%;
   height: auto;
- 
+
   display: table;
   }
 
-  
+
 .right {
 	display: table-cell;
 	vertical-align: top;
@@ -19,7 +19,7 @@
 	padding-top: 20px;
 	background-color: #972337;
 }
-  
+
 
   .left_content{
   float: left;
@@ -34,30 +34,30 @@
   }
 
   .ui-menu { width: 150px;}
-  
- background-color: #a80820;
-  
+
+ /*background-color: #a80820;*/
+
   #menu{
   font-size: 1em;
 
   }
-  
+
   .ui-menu-item {
 	font-size: 1em;
   }
-  
+
   #error_area{
   display:none;
   border-style: none;
   }
-  
+
 .classic_container{
-	
+
 	margin-top: 30px;
 }
 
 .cell_changed option{
-	
+
 	background: #a80820;
 }
 
@@ -69,4 +69,12 @@
 	background-color: #a80820;
 }
 
-  
+#tools-container {
+    background: white;
+    margin-right: 20px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: black 1px 1px;
+}
+

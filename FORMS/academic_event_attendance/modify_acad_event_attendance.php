@@ -297,7 +297,7 @@ $(document).ready (function(){
 
 <!-- Form Name -->
 
-<legend>Academic Event Attendance</legend><?php
+<legend>CCE Attendance</legend><?php
 
 	$is_leader = false;
 
