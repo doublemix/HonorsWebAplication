@@ -84,7 +84,6 @@ if ($conn != false) {
 
 
 	echo "{ \"current\": $current, \"rowCount\":$rows, \"rows\": " . $json . ", \"total\": $trows }";
-	$season = json_decode ( $str, true );
 }
 die ();
 

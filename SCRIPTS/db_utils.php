@@ -40,7 +40,7 @@ function DB_getPrefixedTable($tableName, $prefix = null) {
 }
 
 function DB_tableExists($tableName) {
-    $tables = DB_executeAndFetchAll("SHOW TABLES LIKE '$table'");
+    $tables = DB_executeAndFetchAll("SHOW TABLES LIKE '$tableName'");
     return count($tables) > 0;
 }
 ?>

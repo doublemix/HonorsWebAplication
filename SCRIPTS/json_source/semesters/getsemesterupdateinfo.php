@@ -14,7 +14,7 @@ $conn = DBConnect();
 
 if ($conn != false) {
 
-	
+
 	$searchPhrase = "";
 
 	if (isset ( $_POST ["rowCount"] )) {
@@ -58,15 +58,14 @@ if ($conn != false) {
 	}
 
 	$json = json_encode ( $res_array );
-	
+
 	$query = "SELECT sem_id FROM semesters WHERE sem_name LIKE('$searchPhrase%')";
 	$result = mysqli_query ( $conn, $query );
-	
+
 	$trows = mysqli_num_rows($result);
 
 
 	echo "{ \"current\": $current, \"rowCount\":$rows, \"rows\": " . $json . ", \"total\": $trows }";
-	$season = json_decode ( $str, true );
 }
 die ();
 ?>

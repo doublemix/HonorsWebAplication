@@ -68,14 +68,13 @@ if ($conn != false) {
 	$json = json_encode ( $res_array );
 
 	$query = "SELECT pfdg_event_id FROM " . $prefix . "_fdg_event WHERE pfdg_event_name LIKE('$searchPhrase%') $order $limit";
-	
+
 	$result = mysqli_query ( $conn, $query );
 
 	$trows = mysqli_num_rows($result);
 
 
 	echo "{ \"current\": $current, \"rowCount\":$rows, \"rows\": " . $json . ", \"total\": $trows }";
-	$season = json_decode ( $str, true );
 }
 die ();
 

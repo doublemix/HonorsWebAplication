@@ -93,7 +93,7 @@ if ($conn != false) {
 		foreach ( $_POST ['sort'] as $key => $value ) {
 			$order .= " $key $value";
 		}
-		
+
 		$order = " ORDER BY" . $order;
 	}
 
@@ -106,7 +106,7 @@ if ($conn != false) {
 	$case = "CASE ";
 	$case .=   "WHEN usr_id IN(SELECT usr_id FROM users WHERE usr_education = 1) THEN ";
 	$case .=      "CASE ";
-	$case .=          "When acad_events >= $f_acad_events AND ags >= $ags AND com_hours >= $com_hours AND fdg >= $fdg AND pifs >= $pifs THEN 'YES' ";		
+	$case .=          "When acad_events >= $f_acad_events AND ags >= $ags AND com_hours >= $com_hours AND fdg >= $fdg AND pifs >= $pifs THEN 'YES' ";
 	$case .=		  "ELSE 'NO' ";
 	$case .=      "END ";
 	$case .=   "ELSE ";
@@ -129,14 +129,13 @@ if ($conn != false) {
 	$json = json_encode ( $res_array );
 
 	$query = "SELECT usr_school_id FROM " . $prefix . "_stats WHERE usr_id IN(SELECT pstu_id FROM $prefix"."_currentstudents) AND (CONCAT_WS(' ', usr_fname, usr_lname) LIKE('$searchPhrase%') OR usr_school_id LIKE('$searchPhrase%') OR usr_fname LIKE ('$searchPhrase%') OR usr_lname LIKE('$searchPhrase%'))";
-	
+
 	$result = mysqli_query ( $conn, $query );
 
 	$trows = mysqli_num_rows($result);
 
 
 	echo "{ \"current\": $current, \"rowCount\":$rows, \"rows\": " . $json . ", \"total\": $trows }";
-	$season = json_decode ( $str, true );
 }
 die ();
 

@@ -44,7 +44,7 @@ if ($conn != false) {
 		foreach ( $_POST ['sort'] as $key => $value ) {
 			$order .= " $key $value";
 		}
-		
+
 		$order = " ORDER BY" . $order;
 	}
 
@@ -69,14 +69,13 @@ if ($conn != false) {
 	$json = json_encode ( $res_array );
 
 	$query = "SELECT acad_id FROM " . $prefix . "_academicevents WHERE acad_title LIKE('$searchPhrase%')";
-	
+
 	$result = mysqli_query ( $conn, $query );
 
 	$trows = mysqli_num_rows($result);
 
 
 	echo "{ \"current\": $current, \"rowCount\":$rows, \"rows\": " . $json . ", \"total\": $trows }";
-	$season = json_decode ( $str, true );
 }
 die ();
 
