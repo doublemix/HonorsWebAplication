@@ -1,29 +1,78 @@
 .statlist {
   list-style-type: none;
-  
-  
+
+
 }
 
 .statlist li{
   font-decoration: bold;
   font-size: 1.5em;
   margin-top: 20px;
-  
+
 }
 
-.statlist li ul li{
-  margin-left:4em;
+/*.stats-container ul {
+    list-style-type: none;
+}
+
+.stats-container ul li {
+  margin-left: 2em;
   padding-left: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-decoration: none;
+  text-decoration: none;
   font-size: .8em;
-  list-style-type: none;
   border-left: 2px solid #0066cc;
   margin-top: 0px;
+}*/
+
+.stats-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-#inner {
-    display: table;
-    margin: 0 auto;
+.stats-card {
+    border-radius: 5px;
+    border: 2px outset #888;
+    background: white;
+    margin-bottom: 15px;
+}
+.stats-card > * {
+    padding: 10px 10px;
+    border-bottom: 1px solid #888;
+}
+
+.stats-card > :last-child {
+    border-bottom: none;
+}
+
+.stats-card-header {
+    background: #EEE;
+    font-weight: bold;
+}
+.stats-card-title {
+    font-size: 1.5rem;
+    line-height: normal; /* need to cancel out something set by bootstrap */
+}
+.stats-card > ul {
+    list-style-type: none;
+    padding: 5px 15px;
+    margin: 0;
+}
+.stats-card-inset-shadow {
+    box-shadow: inset 0 5px 5px -5px black;
+}
+.stats-card > ul > li {
+    margin: 5px 0;
+    font-size: .8rem;
+}
+
+.stats-requirements-pass, .stats-requirements-fail {
+    font-weight: bold;
+}
+.stats-requirements-pass {
+    color: green;
+}
+.stats-requirements-fail {
+    color: darkred;
 }

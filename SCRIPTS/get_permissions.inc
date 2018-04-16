@@ -52,7 +52,6 @@ function getPermissions($conn){
 	$query = mysqli_query($conn, $sql);
 
 	if($query == false){
-
 		return false;
 	}
 
