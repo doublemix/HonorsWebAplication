@@ -129,12 +129,24 @@ header("location: index.php");
  	
  	echo " <li>CCE's\n";
  	echo "  <ul>\n";
- 	echo "   <li data-linkhtml = \"academic_event/add_academic_event.php\">Add CCE</li>\n";
-	echo "   <li data-linkhtml = \"academic_event/add_academic_event.php\">Add Freshman CCE</li>\n";
-
+ 	echo "  <li>Upperclassmen CCE's\n";
+	echo "  <ul>\n";
+	echo "   <li data-linkhtml = \"academic_event/add_academic_event.php\">Add CCE</li>\n";
  	echo "   <li data-linkhtml = \"academic_event/update_academic_event.php\">Edit CCE</li>\n";
  	echo "   <li data-linkhtml = \"academic_event_attendance/modify_acad_event_attendance.php\">CCE Attendance</li>\n";
+	echo "  </ul>\n";
+	echo " </li>\n";
+	echo "  <li>Freshman CCE's\n";
+	echo "  <ul>\n";
+	echo "   <li data-linkhtml = \"fdg/adminfdg.php\">Add Freshman CCE</li>\n";
+ 		echo "   <li data-linkhtml = \"current_fdgs/modifyfdgactivestatus.php\">Active Freshman CCE's</li>\n";  
+ 		echo "   		<li data-linkhtml = \"fdg_event/modifyfdgevent.php\">Modify CCE's</li>\n";
+ 		echo "   		<li data-linkhtml = \"fdg_points/fdg_points.php\">FDG Points</li>\n";
+ 		echo "   <li data-linkhtml = \"fdg_members/fdg_members.php\">Freshman Members</li>\n";
+ 		echo "   <li data-linkhtml = \"fdg_leaders/modify_fdg_leaders.php\">Freshman Leaders</li>\n";
  	echo "  </ul>\n";
+ 	echo " </li>\n";
+	echo "  </ul>\n";
  	echo " </li>\n";
  }
  
@@ -212,7 +224,7 @@ header("location: index.php");
  echo "  </ul>\n";
  echo " </li>";
  
- if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][10] == 1){
+ /**if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][10] == 1){
  
  	echo " <li>Events\n";
  	echo "  <ul>\n";
@@ -221,7 +233,7 @@ header("location: index.php");
  	echo "  </ul>\n";
  	echo " </li>\n";
  
- }
+ }**/
  
  if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][4] == 1){
  
@@ -256,17 +268,7 @@ header("location: index.php");
  	if(($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][3] == 1)) {
  
  		
- 		echo "   <li data-linkhtml = \"fdg/adminfdg.php\">FDGs</li>\n";
- 		echo "   <li data-linkhtml = \"current_fdgs/modifyfdgactivestatus.php\">Active FDGs</li>\n";
- 		echo "   <li> FDG Events\n";
- 		echo "       <ul>\n";
- 		echo "   		<li data-linkhtml = \"fdg_event/modifyfdgevent.php\">Modify Events</li>\n";
- 		echo "   		<li data-linkhtml = \"fdg_event_attendance/fdgeventattendance.php\">Event Attendance</li>\n";
- 		echo "   		<li data-linkhtml = \"fdg_points/fdg_points.php\">FDG Points</li>\n";
- 		echo "       </ul>";
- 		echo "	  </li>";
- 		echo "   <li data-linkhtml = \"fdg_members/fdg_members.php\">FDG Members</li>\n";
- 		echo "   <li data-linkhtml = \"fdg_leaders/modify_fdg_leaders.php\">FDG Leaders</li>\n";
+ 		
  
  	}
  	echo "   <li> FDG Reports\n";
