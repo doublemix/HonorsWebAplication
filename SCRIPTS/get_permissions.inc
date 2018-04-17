@@ -33,6 +33,9 @@ require_once 'constants.php';
 
 function getPermissions($conn){
 
+    if (!isset($_SESSION['userid'])) {
+        return false;
+    }
 	$sql = "Select perm_admin, perm_worker, perm_users, perm_fdg, perm_exemptions, perm_academic_events, perm_activity_groups, perm_comm_serv, perm_pif, perm_image_slides, perm_events, perm_news, perm_stats FROM permissions WHERE usr_id =" .  $_SESSION["userid"];
 
 	$permissions = array();
