@@ -10,7 +10,7 @@
  *
  */
 
-require 'constants.php';
+require_once 'constants.php';
 
 /**
  * Permissions Array:

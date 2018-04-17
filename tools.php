@@ -265,24 +265,6 @@ $(document).ready(function() {
 
  if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][3] == 1 || $is_fdg_leader){
 
- 		echo " <li>FDG\n";
- 		echo "  <ul>\n";
-
- 	if(($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][3] == 1)) {
-
-
- 		echo "   <li data-linkhtml = \"fdg/adminfdg.php\">FDGs</li>\n";
- 		echo "   <li data-linkhtml = \"current_fdgs/modifyfdgactivestatus.php\">Active FDGs</li>\n";
- 		echo "   <li> FDG Events\n";
- 		echo "       <ul>\n";
- 		echo "   		<li data-linkhtml = \"fdg_event/modifyfdgevent.php\">Modify Events</li>\n";
- 		echo "   		<li data-linkhtml = \"fdg_event_attendance/fdgeventattendance.php\">Event Attendance</li>\n";
- 		echo "   		<li data-linkhtml = \"fdg_points/fdg_points.php\">FDG Points</li>\n";
- 		echo "       </ul>";
- 		echo "	  </li>";
- 		echo "   <li data-linkhtml = \"fdg_members/fdg_members.php\">FDG Members</li>\n";
- 		echo "   <li data-linkhtml = \"fdg_leaders/modify_fdg_leaders.php\">FDG Leaders</li>\n";
- 	}
  	echo "   <li> FDG Reports\n";
  	echo "       <ul>\n";
  	echo "   		<li data-linkhtml = \"fdg_report/fdgaddreport.php\">Add Report</li>\n";
@@ -290,11 +272,6 @@ $(document).ready(function() {
  	echo "   		<li data-linkhtml = \"fdg_report_attendance/modifyreportattendance.php\">Report Attendance</li>\n";
  	echo "       </ul>";
  	echo "	  </li>";
-
-
-
- 	echo "  </ul>\n";
- 	echo " </li>\n";
 
  }
 
