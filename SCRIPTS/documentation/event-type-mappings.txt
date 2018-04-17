@@ -1,0 +1,10 @@
+
+/*
+ * $type
+ * 1 = PIF
+ * 2 = FDG Report (Meeting)
+ * 3 = Activity Group
+ * 4 = Event
+ * 5 = CCE (prev. Academic Event)
+ * 6 = FDG Event
+ */

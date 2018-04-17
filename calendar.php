@@ -80,8 +80,9 @@ AddCSS( "index.css" );
 				$row = mysqli_fetch_row($result);
 
 				$prefix = $row[0];
+                // exclude freshmen events
 				 //                0     1     2       3           4           5        6
-				$query = "SELECT start, end, title, back_color, font_color, event_id, `group` FROM $prefix" . "_dates";
+				$query = "SELECT start, end, title, back_color, font_color, event_id, `group` FROM $prefix" . "_dates WHERE event_id NOT IN (2, 6)";
 
 				$result = mysqli_query($conn, $query);
 
