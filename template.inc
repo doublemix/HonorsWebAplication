@@ -9,6 +9,8 @@
 *	Created on: 5/16/2016
 */
 
+require_once "SCRIPTS/constants.php";
+
 function HTML_StartHead(){
 		echo "<!DOCTYPE html>\n";
 		echo "<html>\n";
@@ -40,7 +42,7 @@ function Body_CreateSideNav(){
   if (!isset($_SESSION["username"])){
 	echo "<a href=\"login.php\">Login</a>\n";
   } else {
-  	if($_SESSION["status"] == 1 || $_SESSION["status"] == 2 || $_SESSION["status"] == 5){
+  	if($_SESSION["status"] == USER_STATUS_ADMIN || $_SESSION["status"] == USER_STATUS_STUDENT || $_SESSION["status"] == USER_STATUS_PROFESSOR){
 		echo "<a href=\"tools.php\">Tools</a>\n";
   	}
 
@@ -68,22 +70,23 @@ function Body_CreateStickyNav(){
 		echo "<li><a href=\"login.php\">Login</a></li>\n";
 	} else {
 
-		if($_SESSION["status"] == 1 || $_SESSION["status"] == 2 || $_SESSION["status"] == 5){
-		echo "<li><a href=\"tools.php\">Tools</a></li>\n";
-		echo "<li><a href=\"stats.php\">Stats</a></li>\n";
+		if($_SESSION["status"] == USER_STATUS_ADMIN || $_SESSION["status"] == USER_STATUS_STUDENT || $_SESSION["status"] == USER_STATUS_PROFESSOR){
+            echo "<li><a href=\"tools.php\">Tools</a></li>\n";
 		}
+		if($_SESSION["status"] == USER_STATUS_STUDENT || $_SESSION["status"] == USER_STATUS_PROFESSOR){
+            echo "<li><a href=\"stats.php\">Stats</a></li>\n";
+        }
 
 		echo "<li><a href=\"logout.php\">Log out</a></li>\n";
-		echo "<div class=\"dropdown-content\">";
-
-		if($_SESSION["status"] == 2){
-
-		echo "<a href=\"stats.php\">Stats</a>";
-
-		}
-		echo "<a href=\"logout.php\" onclick=\"return acceptLogout();\">Log Out</a>\n";
-		echo "</div>";
-		echo "</li>\n";
+//		echo "<div class=\"dropdown-content\">";
+//
+//		if($_SESSION["status"] == USER_STATUS_STUDENT){
+//
+//            echo "<a href=\"stats.php\">Stats</a>";
+//
+//		}
+//		echo "<a href=\"logout.php\" onclick=\"return acceptLogout();\">Log Out</a>\n";
+//		echo "</div>";
   }
 	echo "<li class=\"icon\">\n";
     echo "<a href=\"javascript:void(0);\" class=\"icon_button\" onclick=\"openNav()\">&#9776;</a>\n";
