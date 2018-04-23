@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 require_once "../../SCRIPTS/db_connect.inc";
@@ -22,7 +22,7 @@ function showMessage(result){
 		  $("#error_area").fadeIn(2000).delay( 6000 ).fadeOut(2000);
 		 $(this).dequeue();
 		  });
-		 
+
 		  } else {
 		 var err = "Error: " + result;
 		  $("#error_area").queue(function(){
@@ -44,7 +44,7 @@ $(document).ready (function(){
 
 		var option = $("#val_select").val();
 		var newval = $("#value").val();
-		
+
 		if(option == 1){
 		$("#acad_events").val(newval);
 		}
@@ -67,7 +67,7 @@ $(document).ready (function(){
 			$("#capstone").val(newval);
 			}
 
-		
+
 		$("#grid-command-buttons-stats").bootgrid("reload");
 
 	});
@@ -76,7 +76,7 @@ $(document).ready (function(){
 	var resetbutton = document.getElementById("resetButton");
 
 	$(resetbutton).click(function() {
-	    
+
 	    if(confirm("Reset the current stats?")){
 	    	$("#acad_events").val('2');
 			$("#ags").val('10');
@@ -86,21 +86,21 @@ $(document).ready (function(){
 			$("#capstone").val('0');
 			$("#f_acad_event").val('4');
 			$("#grid-command-buttons-stats").bootgrid("reload");
-			
+
 	    }
-		    
-	    
-	    
+
+
+
 	});
 
 	$("#val_select").change(function (){
 
 		var option = $("#val_select").val();
-		
+
 		if(option == 1){
 			$("#value").val($("#acad_events").val());
 			}
-		
+
 			if(option == 2){
 				$("#value").val($("#ags").val());
 				}
@@ -120,12 +120,12 @@ $(document).ready (function(){
 				$("#value").val($("#capstone").val());
 				}
 	});
-	
+
 	var grid = $("#grid-command-buttons-stats").bootgrid({
 	    ajax: true,
 	    post: function ()
 	    {
-	        
+
 	        return {
 	            id: "b0df282a-0d67-40e5-8558-c9e93b7befed",
 	            prefix: $("#sem_select").val(),
@@ -136,11 +136,11 @@ $(document).ready (function(){
 	            fdg : $("#fdg").val(),
 	            capstone : $("#capstone").val(),
 	            f_acad_events : $("#f_acad_event").val()
-	            
+
 	        };
 	    },
 	    url: "/SCRIPTS/json_source/stats/display_stats.php"
-	    
+
 	});
 
 
@@ -154,7 +154,7 @@ $(document).ready (function(){
 		$("#f_acad_event").val('4');
 		$("#grid-command-buttons-stats").bootgrid("reload");
 	});
-	
+
 	});
 
 
@@ -168,15 +168,15 @@ $(document).ready (function(){
 
 <!-- Form Name -->
 
-<legend>Stat Review</legend><?php 
-  	
+<legend>Stat Review</legend><?php
+
 	$result = mysqli_query($conn, "SELECT sem_name, sem_prefix from semesters order by sem_id desc;");
-	
+
 	echo "<div class=\"form-group\">\n";
 	echo "<label class=\"col-md-4 control-label\" for=\"sem_select\">Semester:</label>\n";
 	echo "<div class=\"col-md-4\">";
 	echo "<select id=\"sem_select\" name=\"prefix\" class=\"form-control\">";
-	
+
 	$count = 0;
 	while($row = mysqli_fetch_row($result)){
 		if($count == 0){
@@ -185,20 +185,20 @@ $(document).ready (function(){
 			echo "<option value=\"" . $row[1] . "\">" . $row[0] . "</option>\n";
 		}
 		$count++;
-		
+
 	}
-	
+
 	echo "</select>";
 	echo "</div>";
 	echo "</div>";
-	
+
 	?>
-	
+
 	  	<div class="form-group">
-  <label class="col-md-4 control-label" for="val_select">Stat:</label>  
+  <label class="col-md-4 control-label" for="val_select">Stat:</label>
   <div class="col-md-4">
   <select id="val_select">
-  <option value="1">Academic Events</option>
+  <option value="1">CCEs</option>
   <option value="2">Activity Groups</option>
   <option value="3">Community Service</option>
   <option value="4">PIFs</option>
@@ -208,28 +208,28 @@ $(document).ready (function(){
   </select>
   </div>
   </div>
-	
+
 	<div class="form-group">
-  <label class="col-md-4 control-label" for="value">Value:</label>  
+  <label class="col-md-4 control-label" for="value">Value:</label>
   <div class="col-md-4">
   <input id="value" class="form-control" maxlength="9" type="text" value="4"></input>
   </div>
   </div>
-	                    
+
       <input id="acad_events" type="hidden" name="acad_events" value="2"></input>
       <input id="ags" type="hidden" name="ags" value="10"></input>
       <input id="com_hours" type="hidden" name="com_hours" value="0"></input>
-      <input id="pifs" type="hidden" name="pifs" value="1"></input>        
-      <input id="fdg" type="hidden" name="fdg" value="20"></input>                     
-      <input id="f_acad_event" type="hidden" name="f_acad_event" value="4"></input> 
+      <input id="pifs" type="hidden" name="pifs" value="1"></input>
+      <input id="fdg" type="hidden" name="fdg" value="20"></input>
+      <input id="f_acad_event" type="hidden" name="f_acad_event" value="4"></input>
       <input id="capstone" type="hidden" name="capstone" value="0"></input>
-     
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="submitButton"></label>
   <div class="col-md-4">
     <button type="button" id="submitButton" name="submitButton" class="btn btn-primary">Change</button>
     <button type="button" id="resetButton" name="resetButton" class="btn btn-primary">Reset</button>
-    
+
   </div>
 </div>
 
@@ -253,10 +253,10 @@ $(document).ready (function(){
             </tr>
         </thead>
     </table>
-    
+
 	<div class="form-group">
   <label class="col-md-4 control-label" for="error_area"></label>
-  <div class="col-md-4">                     
+  <div class="col-md-4">
     <span id="error_area"></span>
   </div>
 </div>

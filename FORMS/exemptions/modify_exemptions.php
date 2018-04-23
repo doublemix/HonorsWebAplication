@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 require_once "../../SCRIPTS/db_connect.inc";
@@ -27,7 +27,7 @@ $(document).ready (function(){
 			  $("#error_area").fadeIn(2000).delay( 6000 ).fadeOut(2000);
 			 $(this).dequeue();
 			  });
-			 
+
 			  } else {
 			 var err = "Error: " + result;
 			  $("#error_area").queue(function(){
@@ -56,51 +56,51 @@ var grid = $("#grid-command-buttons-exemptions").bootgrid({
             return "<button id=\"" + row.excptn_id + "t0" + "\" type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.excptn_id + "\"><i id=\"btn" + row.excptn_id +"\" class=\"fa fa-pencil\"></i></button> " +
             	   "<button id=\"" + row.excptn_id + "t3" + "\" type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.excptn_id + "\" data-probation-name=\"" + row.excptn_name + "\"><i id=\"btn" + row.excptn_id + "del\" class=\"fa fa-trash-o\"></i></button>";
         },
-    
+
     	"excptn_name": function(column, row)
     	{
     		return "<input id=\"" + row.excptn_id + "t1" + "\" type=\"text\" maxlength=\"60\" class=\"form-control\" name=\"excptn_name\"   data-orig=\"" + row.excptn_name + "\" value=\"" + row.excptn_name +  "\">";
     	},
     	"excptn_value": function(column, row)
-    	
+
     	{
     		return "<input id=\"" + row.excptn_id + "t4" + "\" type=\"text\" maxlength=\"8\" class=\"form-control\" name=\"excptn_name\"   data-orig=\"" + row.excptn_value + "\" value=\"" + row.excptn_value +  "\">";
     	},
         "excptn_type": function(column, row)
     	{
         	var probation_string = "";
-    		
+
     		probation_string = "<select id=\"" + row.excptn_id + "t2" + "\" class=\"form-control\" name=\"probationtype\" data-orig=\"" + row.excptn_type + "\" data-row-id=\"" + row.excptn_type + "\">";
-    		
+
     		if(row.excptn_type == 1){
     			probation_string += "<option value=\"1\" selected>Activity Groups</option>";
     		} else {
     			probation_string += "<option value=\"1\">Activity Groups</option>";
     		}
-    		
+
     		if(row.excptn_type == 2){
-    			probation_string += "<option value=\"2\" selected>Academic Events</option>";
+    			probation_string += "<option value=\"2\" selected>CCEs</option>";
     		} else {
-    			probation_string += "<option value=\"2\">Academic Events</option>";
+    			probation_string += "<option value=\"2\">CCEs</option>";
     		}
-    		
+
     		if(row.excptn_type == 3){
     			probation_string += "<option value=\"3\" Selected>Community Service</option>";
     		} else {
     			probation_string += "<option value=\"3\">Community Service</option>";
     		}
-    		
+
     		if(row.excptn_type == 4){
     			probation_string += "<option value=\"4\" Selected>FDG Group</option>";
     		} else {
     			probation_string += "<option value=\"4\">FDG Group</option>";
     		}
-    	
-    		
+
+
     		probation_string += "</select>";
-    		
+
     		return probation_string;    	}
-    
+
     }
 }).on("loaded.rs.jquery.bootgrid", function()
 {
@@ -114,10 +114,10 @@ var grid = $("#grid-command-buttons-exemptions").bootgrid({
         var excptn_value = $("#" + id + "t4").val();
 		var button_id = "#btn" + id;
 
-        
+
         $(button_id).removeClass("fa-pencil");
         $(button_id).addClass("fa-cog fa-spin");
-    	
+
         	$.ajax( {
         		type: 'POST',
                 url: '/SCRIPTS/requests/exceptionsrequest.php',
@@ -139,20 +139,20 @@ var grid = $("#grid-command-buttons-exemptions").bootgrid({
 				         $("#" + id + "t2").data({"orig": excptn_type});
 				         $("#" + id + "t1").data({"orig": excptn_name});
 				         $("#" + id + "t4").data({"orig": excptn_value});
-					}	
-                	
+					}
+
                 	showMessage(data, "Exemption Updated");
-                	
+
                 }
              });
-        	
+
         	$(button_id).removeClass("fa-cog fa-spin");
         	$(button_id).addClass("fa-pencil");
     }).end().find(".command-delete").on("click", function(e){
-    		    
-    	
+
+
     	if(confirm("Are you sure you want to delete this Exemption?")){
-        	
+
         	$.ajax( {
         		type: 'POST',
                 url: '/SCRIPTS/requests/exceptionsrequest.php',
@@ -164,25 +164,25 @@ var grid = $("#grid-command-buttons-exemptions").bootgrid({
                 },
                 dataType: "text",
                 success:function(data) {
-                   
+
                 	if(data == "success"){
                 		$("#grid-command-buttons-exemptions").bootgrid("reload");
                 	} else {
                 		//Do Nothing
                 	}
-                	
+
                 	showMessage(data, "Exception Deleted.");
-                	
+
                 }
              });
-        	
+
         } else {
         	//Do nothing lol
         }
     	     });
 
-    
-    
+
+
 });
 
 
@@ -197,9 +197,9 @@ $(document).on('change','input[data-orig]',function(){
 	} else {
 		$(this).css({"background-color": "#ccffcc"});
 	}
-	
-	
-    
+
+
+
 });
 
 $(document).on('change','select[data-orig]',function(){
@@ -213,20 +213,20 @@ $(document).on('change','select[data-orig]',function(){
 	} else {
 		$(this).css({"background-color": "#ccffcc"});
 	}
-	
-	
-    
+
+
+
 });
 
 var subbutton = document.getElementById("submitButton");
 $(subbutton).click(function() {
     // Stop the browser from submitting the form.
 
-    
-    
+
+
     var form = $('#exemption_form');
     var formData = $(form).serialize();
-    
+
     $.ajax({
         type: 'POST',
         url: "/SCRIPTS/requests/exceptionsrequest.php",
@@ -239,13 +239,13 @@ $(subbutton).click(function() {
         		$("#grid-command-buttons-exemptions").bootgrid("reload");
         	} else {
         	}
-        	
+
         	showMessage(result, "Exemption Added.");
         }
     })
-    
-    
-    
+
+
+
 });
 
 $("#sem_select").change(function(){
@@ -271,7 +271,7 @@ $("#sem_select").change(function(){
 <div class="form-group">
 <label class="col-md-4 control-label" for="sem_select">Semester:</label>
 <div class="col-md-4">
-<select id="sem_select" name="prefix" class="form-control"><?php 
+<select id="sem_select" name="prefix" class="form-control"><?php
 
 
 $result = mysqli_query($conn, "SELECT sem_name, sem_prefix from semesters order by sem_id desc");
@@ -279,7 +279,7 @@ $result = mysqli_query($conn, "SELECT sem_name, sem_prefix from semesters order 
 $count = 0;
 while($row = mysqli_fetch_row($result)){
 	if($count == 0){
-		
+
 		echo "<option value=\"" . $row[1] . "\" selected>Current Semester</option>\n";
 	} else {
 		echo "<option value=\"" . $row[1] . "\">" . $row[0] . "</option>\n";
@@ -288,8 +288,8 @@ while($row = mysqli_fetch_row($result)){
 
 	mysqli_free_result($result);
 	DBClose($conn);
-	
-	
+
+
 }
 
 ?></select>
@@ -298,13 +298,13 @@ while($row = mysqli_fetch_row($result)){
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="excptn_name">Exemption Name:</label>  
+  <label class="col-md-4 control-label" for="excptn_name">Exemption Name:</label>
   <div class="col-md-4">
-  <input id="excptn_name" maxlength="60" name="excptn_name" placeholder="Name" class="form-control input-md" required type="text">  
+  <input id="excptn_name" maxlength="60" name="excptn_name" placeholder="Name" class="form-control input-md" required type="text">
   </div>
 </div>
 <div class="form-group">
-  <label class="col-md-4 control-label" for="excptn_type">Exemption Type:</label>  
+  <label class="col-md-4 control-label" for="excptn_type">Exemption Type:</label>
   <div class="col-md-4">
   <select id="excptn_type" name="excptn_type" class="form-control input-md" required>
   		<option value="1" selected="selected">Activity Groups</option>
@@ -312,15 +312,15 @@ while($row = mysqli_fetch_row($result)){
   		<option value="3">Community Service</option>
   		<option value="4">FDG Groups</option>
 
-  		
-  </select>  
+
+  </select>
   </div>
 </div>
 
 <div class="form-group">
-  <label class="col-md-4 control-label" for="excptn_value">Exemption Value:</label>  
+  <label class="col-md-4 control-label" for="excptn_value">Exemption Value:</label>
   <div class="col-md-4">
-  <input id="excptn_value" maxlength="8" name="excptn_value" placeholder="Value" class="form-control input-md" required type="text">  
+  <input id="excptn_value" maxlength="8" name="excptn_value" placeholder="Value" class="form-control input-md" required type="text">
   </div>
 </div>
 
@@ -350,10 +350,10 @@ while($row = mysqli_fetch_row($result)){
             </tr>
         </thead>
     </table>
-    
+
 	<div class="form-group">
   <label class="col-md-4 control-label" for="error_area"></label>
-  <div class="col-md-4">                     
+  <div class="col-md-4">
     <span id="error_area"></span>
   </div>
 </div>

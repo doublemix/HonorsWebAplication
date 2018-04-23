@@ -201,7 +201,7 @@ $probationCase = generateCase('probation_type', [
     3 => 'Academic',
     0 => 'Activity Groups',
     2 => 'Community Service',
-    1 => 'Academic Events',
+    1 => 'CCEs',
     5 => 'Behavioral',
     4 => 'Honors Credits',
 ], 'Unknown');
@@ -241,7 +241,7 @@ Body_CreateStickyNav();
     <div class="stats-card-inset-shadow stats-requirements-<?php echo $pass ? "pass" : "fail"?>">Requirements met: <?php echo $pass ? "Yes" : "No"; ?></div>
 </div>
 <div class="stats-card">
-    <div class="stats-card-header">Academic Events: <?php echo (int) ($stats["acad_events"]) . " of " . $cceRequirements; ?></div>
+    <div class="stats-card-header">CCEs: <?php echo (int) ($stats["acad_events"]) . " of " . $cceRequirements; ?></div>
     <?php
     generateList($attendedEvents, function ($event) {
         $title = $event["title"];

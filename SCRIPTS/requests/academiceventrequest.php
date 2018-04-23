@@ -60,13 +60,13 @@ if(isset($_POST["academiceventsrequest"])){
 			$acad_title = mysqli_real_escape_string($conn, removeslashes($_POST["acad_title"]));
 
 			if(strlen(trim($acad_title)) < 1){
-				echo "Academic Event title is blank.";
+				echo "CCE title is blank.";
 				DBClose($conn);
 				die();
 			}
 
 		} else {
-			echo "Academic Event Name not set.";
+			echo "CCE name not set.";
 			DBClose($conn);
 			return;
 		}
@@ -74,12 +74,12 @@ if(isset($_POST["academiceventsrequest"])){
 		if(isset($_POST["acad_description"])){
 			$acad_description = mysqli_real_escape_string($conn, removeslashes($_POST["acad_description"]));
 			if(strlen(trim($acad_description)) < 1){
-				echo "Academic Event description is blank.";
+				echo "CCE description is blank.";
 				DBClose($conn);
 				die();
 			}
 		} else {
-			echo "Academic Event Description not set.";
+			echo "CCE description not set.";
 			DBClose($conn);
 			return;
 		}
@@ -87,7 +87,7 @@ if(isset($_POST["academiceventsrequest"])){
 		if(isset($_POST["acad_start_date"])){
 			$acad_start_date = mysqli_real_escape_string($conn, removeslashes($_POST["acad_start_date"]));
 		} else {
-			echo "Academic Event Start Date not set.";
+			echo "CCE start date not set.";
 			DBClose($conn);
 			return;
 		}
@@ -95,7 +95,7 @@ if(isset($_POST["academiceventsrequest"])){
 		if(isset($_POST["acad_end_date"])){
 			$acad_end_date = mysqli_real_escape_string($conn, removeslashes($_POST["acad_end_date"]));
 		} else {
-			echo "Academic Event End Date not set.";
+			echo "CCE end date not set.";
 			DBClose($conn);
 			return;
 		}
@@ -128,7 +128,7 @@ if(isset($_POST["academiceventsrequest"])){
 				return;
 			}
 		} else {
-			echo "Academic event id not set";
+			echo "CCE id not set";
 			DBClose($conn);
 			return;
 		}
@@ -161,7 +161,7 @@ if(isset($_POST["academiceventsrequest"])){
 		$acad_bg_color = "";
 
 		if(($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][5] == 1) == false){
-			echo "You do not have permissions to update Academic events.";
+			echo "You do not have permissions to update CCEs.";
 			die();
 		}
 
@@ -179,7 +179,7 @@ if(isset($_POST["academiceventsrequest"])){
 			$where = $where . $acad_id;
 
 		} else {
-			echo "Academic event id not set";
+			echo "CCE id not set.";
 			DBClose($conn);
 			return;
 		}
@@ -189,7 +189,7 @@ if(isset($_POST["academiceventsrequest"])){
 			$acad_title = mysqli_real_escape_string($conn, removeslashes($_POST["acad_title"]));
 
 			if(strlen(trim($acad_title)) < 1){
-				echo "Academic Event title is blank.";
+				echo "CCE title is blank.";
 				DBClose($conn);
 				die();
 			}
@@ -201,7 +201,7 @@ if(isset($_POST["academiceventsrequest"])){
 			$acad_description = mysqli_real_escape_string($conn, removeslashes($_POST["acad_description"]));
 
 			if(strlen(trim($acad_description)) < 1){
-				echo "Academic Event description is blank.";
+				echo "CCE description is blank.";
 				DBClose($conn);
 				die();
 			}

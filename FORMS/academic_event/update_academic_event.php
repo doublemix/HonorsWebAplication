@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 require_once "../../SCRIPTS/db_connect.inc";
@@ -6,7 +6,7 @@ require_once "../../SCRIPTS/db_connect.inc";
 $conn = DBConnect();
 
 if(($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][5] == 1) == false){
-	
+
 	header("location: index.php");
 	die();
 }
@@ -27,7 +27,7 @@ $(document).ready (function(){
 			  $("#error_area").fadeIn(2000).delay( 6000 ).fadeOut(2000);
 			 $(this).dequeue();
 			  });
-			 
+
 			  } else {
 			 var err = "Error: " + result;
 			  $("#error_area").queue(function(){
@@ -45,7 +45,7 @@ var grid = $("#grid-command-buttons-acad-event-update").bootgrid({
     ajax: true,
     post: function ()
     {
-        
+
         return {
             id: "b0df282a-0d67-40e5-8558-c9e93b7befed",
             prefix: $("#sem_select").val()
@@ -55,11 +55,11 @@ var grid = $("#grid-command-buttons-acad-event-update").bootgrid({
     formatters: {
         "commands": function(column, row)
         {
-            
+
             return "<button id=\"" + row.acad_id + "t0" + "\" type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.acad_id + "\"><i id=\"btn" + row.acad_id +"\" class=\"fa fa-pencil\"></i></button> " +
             "<button id=\"" + row.acad_id + "t3" + "\" type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.acad_id + "\" data-event-name=\"" + row.acad_title +"\"><i id=\"btn" + row.acad_id + "del\" class=\"fa fa-trash-o\"></i></button>";
 
-            	  
+
         },
 
         "acad_title": function(column, row)
@@ -76,27 +76,27 @@ var grid = $("#grid-command-buttons-acad-event-update").bootgrid({
     	{
     		return "<input id=\"" + row.acad_id + "t7" + "\" type=\"text\" maxlength=\"7\" class=\"form-control\" data-row-id=\"" + row.acad_id + "\" data-orig=\"" + row.acad_ft_color + "\" value=\"" + row.acad_ft_color +  "\">";
     	},
-        
+
         "acad_description": function(column, row)
     	{
         	return "<textarea id=\"" + row.acad_id + "t2" + "\" type=\"text\" maxlength=\"60\" class=\"form-control\" data-row-id=\"" + row.acad_id+ "\" data-orig=\"" + row.acad_description + "\" >" + row.acad_description + "</textarea>";
     	},
-    
-        
+
+
         "acad_start_date": function(column, row)
     	{
         	var t = moment(row.acad_start_date, "YYYY-MM-DD HH:mm:ss");
-        	
+
     		return "<input id=\"" + row.acad_id + "t4" + "\" type=\"text\" class=\"form-control datepicker_dynamic\" data-row-id=\"" + row.acad_id + "\" data-orig=\"" + t.format("MM/DD/YYYY hh:mm a") + "\"  value=\"" + t.format("MM/DD/YYYY hh:mm a") +  "\">";
     	},
-        
+
     	"acad_end_date": function(column, row)
     	{
     		var t = moment(row.acad_end_date, "YYYY-MM-DD HH:mm:ss");
-        	
+
     		return "<input id=\"" + row.acad_id + "t5" + "\" type=\"text\" class=\"form-control datepicker_dynamic\" ndata-row-id=\"" + row.acad_id+ "\" data-orig=\"" + t.format("MM/DD/YYYY hh:mm a") + "\"  value=\"" + t.format("MM/DD/YYYY hh:mm a") +  "\">";
     	}
-    
+
     }
 }).on("loaded.rs.jquery.bootgrid", function()
 {
@@ -105,7 +105,7 @@ var grid = $("#grid-command-buttons-acad-event-update").bootgrid({
 
     	if(confirm("Are you sure you want to remove the : \"" + $(this).data("event-name") + "\" event?")){
 
-    	
+
         	$.ajax( {
         		type: 'POST',
                 url: '/SCRIPTS/requests/academiceventrequest.php',
@@ -117,21 +117,21 @@ var grid = $("#grid-command-buttons-acad-event-update").bootgrid({
                 },
                 dataType: "text",
                 success:function(data) {
-                   
+
                 	if(data == "success"){
                 		$("#grid-command-buttons-acad-event-update").bootgrid("reload");
                 	} else {
                 		//Do Nothing
                 	}
-                	
+
                 	showMessage(data, "Student Removed.");
-                	
+
                 }
              });
     	} else {
 			//Do Nothing
     	}
-       
+
     	     }).end().find(".command-edit").on("click", function(e)
     	    		    {
 
@@ -142,13 +142,13 @@ var grid = $("#grid-command-buttons-acad-event-update").bootgrid({
     	         var acad_end_date = $("#" + id + "t5").val();
     	         var acad_bg_color = $("#" + id + "t6").val();
     	         var acad_ft_color = $("#" + id + "t7").val();
-    	         
+
     	 		var button_id = "#btn" + id;
 
-    	         
+
     	         $(button_id).removeClass("fa-pencil");
     	         $(button_id).addClass("fa-cog fa-spin");
-    	     	
+
     	         	$.ajax( {
     	         		type: 'POST',
     	                 url: '/SCRIPTS/requests/academiceventrequest.php',
@@ -180,19 +180,19 @@ var grid = $("#grid-command-buttons-acad-event-update").bootgrid({
    	 				             $("#" + id + "t5").data({"orig": acad_end_date});
    	 				         	 $("#" + id + "t6").data({"orig": acad_bg_color});
    	 				     		 $("#" + id + "t7").data({"orig": acad_ft_color});
-    	 					}	
-    	                 	
+    	 					}
+
     	                 	showMessage(data, "FDG Event Updated");
-    	                 	
+
     	                 }
     	              });
-    	         	
+
     	         	$(button_id).removeClass("fa-cog fa-spin");
     	         	$(button_id).addClass("fa-pencil");
     	     });
 
-    
-    
+
+
 });
 
 
@@ -220,18 +220,18 @@ $(document).on('change','input[data-orig]',function(){
 		} else {
 			$(this).css({"background-color": "#ccffcc"});
 		}
-    
+
 });
 
 var subbutton = document.getElementById("submitButton");
 $(subbutton).click(function() {
     // Stop the browser from submitting the form.
 
-    
-    
+
+
     var form = $('#acad_events_form');
     var formData = $(form).serialize();
-    
+
     $.ajax({
         type: 'POST',
         url: "SCRIPTS/requests/academiceventrequest.php",
@@ -240,7 +240,7 @@ $(subbutton).click(function() {
         dataType: "text",
         success: function(result){
         	if(result == "success"){
-        		
+
         		$("#grid-command-buttons-acad-event-update").bootgrid("reload");
         	} else {
 				//Do nothing, I guess....
@@ -248,9 +248,9 @@ $(subbutton).click(function() {
         	showMessage(result, "Student Added");
         }
     })
-    
-    
-    
+
+
+
 });
 
 
@@ -271,11 +271,11 @@ $('#datetimepickerend').datetimepicker({
 $( '#datetimepicker' ).change(function() {
 
 	var newtime = $('#datetimepicker').datetimepicker('getDate');
-	
+
 	newtime.setHours(newtime.getHours() + 1);
-	
+
 	$('#datetimepickerend').datetimepicker('setDate', newtime );
-	
+
 	});
 
 $('body').on('focus',".datepicker_dynamic", function(){
@@ -284,8 +284,8 @@ $('body').on('focus',".datepicker_dynamic", function(){
     	timeFormat: "hh:mm tt"
     });
 
-	
-    
+
+
 });
 
 });
@@ -303,17 +303,17 @@ $('body').on('focus',".datepicker_dynamic", function(){
 
 <!-- Form Name -->
 
-<legend>Update Academic Event</legend>
+<legend>Update CCE</legend>
 
 <div class="form-group">
-  <label class="col-md-4 control-label" for="sem_select">Semester:</label>  
+  <label class="col-md-4 control-label" for="sem_select">Semester:</label>
   <div class="col-md-4">
   <select id="sem_select" name="prefix" class="form-control">
-  	<?php 
-  	
-  	
+  	<?php
+
+
 	$result = mysqli_query($conn, "SELECT sem_name, sem_prefix from semesters order by sem_id desc;");
-	
+
 	$count = 0;
 	while($row = mysqli_fetch_row($result)){
 		if($count == 0){
@@ -322,15 +322,15 @@ $('body').on('focus',".datepicker_dynamic", function(){
 			echo "<option value=\"" . $row[1] . "\">" . $row[0] . "</option>\n";
 		}
 		$count++;
-		
+
 	}
-	
+
 	DBClose($conn);
-	
+
   	?>
-  </select> 
+  </select>
   </div>
-</div>	
+</div>
 </fieldset>
 </form>
 
@@ -349,10 +349,10 @@ $('body').on('focus',".datepicker_dynamic", function(){
             </tr>
         </thead>
     </table>
-    
+
 	<div class="form-group">
   <label class="col-md-4 control-label" for="error_area"></label>
-  <div class="col-md-4">                     
+  <div class="col-md-4">
     <span id="error_area"></span>
   </div>
 </div>

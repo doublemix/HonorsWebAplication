@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 require_once "../../SCRIPTS/db_connect.inc";
@@ -22,7 +22,7 @@ function showMessage(result, success){
 		  $("#error_area").fadeIn(2000).delay( 6000 ).fadeOut(2000);
 		 $(this).dequeue();
 		  });
-		 
+
 		  } else {
 		 var err = "Error: " + result;
 		  $("#error_area").queue(function(){
@@ -41,11 +41,11 @@ $(document).ready (function(){
 	var subbutton = document.getElementById("submitButton");
 
 	$(subbutton).click(function() {
-		
-	    
+
+
 	    var form = $('#add_excptn_grant');
 	    var formData = $(form).serialize();
-	    
+
 	    $.ajax({
 	        type: 'POST',
 	        url: "SCRIPTS/requests/exceptiongrantsrequest.php",
@@ -58,18 +58,18 @@ $(document).ready (function(){
 	        		$("#user_name").val("");
 	        	} else {
 	        	}
-	        	
+
 	        	showMessage(result, "Exception Assignment Added.");
 	        }
 	    })
-	    
-	    
-	    
+
+
+
 	});
 
 
-	
-	
+
+
 
 
 
@@ -85,24 +85,24 @@ $(document).ready (function(){
 
 	        		$('#excptn_select').empty();
 					$('#submitButton').prop('disabled', true);
-	        		
+
 	        		$.each(data.rows, function(index, element) {
 						$('#submitButton').prop('disabled', false);
 	        			$('#excptn_select').append("<option value=\"" + element.excptn_id + "\">" + element.excptn_name + "</option>");
-	        		    
+
 	        		});
 
 	        		$("#excptn_select").trigger("change");
 	        		$("#grid-command-buttons-grant-exceptions").bootgrid("reload");
-	        		
+
 	        }
 	     });
 	});
 
-	
+
 
 	$("#excptn_select").change(function(){
-		
+
 		$("#user_name").val("");
 	});
 
@@ -130,16 +130,16 @@ $(document).ready (function(){
 	    },
 	    select: function( event, ui ) {
 	        $( "#user_name" ).val( ui.item.value );
-	        $("#usr_submit_id").val(ui.item.id);    
+	        $("#usr_submit_id").val(ui.item.id);
 	        return false;
 		 }
 	});
-	
+
 	var grid = $("#grid-command-buttons-grant-exceptions").bootgrid({
 	    ajax: true,
 	    post: function ()
 	    {
-	        
+
 	        return {
 	            id: "b0df282a-0d67-40e5-8558-c9e93b7befed",
 	            prefix: $("#sem_select").val()
@@ -150,7 +150,7 @@ $(document).ready (function(){
 	        "commands": function(column, row)
 	        {
 	            return "<button id=\"" + row.grant_id + "t3" + "\" type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.grant_id + "\" data-student-name=\"" + row.usr_fname + " " + row.usr_lname + "\"><i id=\"btn" + row.grant_id + "del\" class=\"fa fa-trash-o\"></i></button>";
-	  	  
+
 	        },
 	        "excptn_type": function(column, row)
 	        {
@@ -160,7 +160,7 @@ $(document).ready (function(){
 				}
 
 				if(row.excptn_type == 2){
-					return "Academic Event";
+					return "CCE";
 				}
 
 				if(row.excptn_type == 3){
@@ -170,11 +170,11 @@ $(document).ready (function(){
 				if(row.excptn_type == 4){
 					return "FDG Group";
 				}
-	        	
+
 	        }
-	        
-	        
-	    
+
+
+
 	    }
 	}).on("loaded.rs.jquery.bootgrid", function()
 	{
@@ -183,7 +183,7 @@ $(document).ready (function(){
 
 	    	if(confirm("Are you sure you want to remove: \"" + $(this).data("student-name") + "\" from the exemption list?")){
 
-	    	
+
 	        	$.ajax( {
 	        		type: 'POST',
 	                url: '/SCRIPTS/requests/exceptiongrantsrequest.php',
@@ -195,32 +195,32 @@ $(document).ready (function(){
 	                },
 	                dataType: "text",
 	                success:function(data) {
-	                   
+
 	                	if(data == "success"){
 	                		$("#grid-command-buttons-grant-exceptions").bootgrid("reload");
 	                	} else {
 	                		//Do Nothing
 	                	}
-	                	
+
 	                	showMessage(data, "Student Removed.");
-	                	
+
 	                }
 	             });
 	    	} else {
 				//Do Nothing
 	    	}
-	       
+
 	    	     });
 
-	    
-	    
-	});
-		
-		$("#sem_select").trigger('change');
-	
+
+
 	});
 
-	
+		$("#sem_select").trigger('change');
+
+	});
+
+
 
 
 </script>
@@ -235,24 +235,24 @@ $(document).ready (function(){
 
 <!-- Form Name -->
 
-<legend>Exemption Grants</legend><?php 
-  	
+<legend>Exemption Grants</legend><?php
+
 	$is_leader = false;
-	
+
 	$result = mysqli_query($conn, "SELECT sem_prefix FROM semesters WHERE sem_active = 1");
-	
+
 	$prefix = "";
-	
+
 	$row = "";
-	
+
 	$result = mysqli_query($conn, "SELECT sem_name, sem_prefix from semesters order by sem_id desc;");
-	
+
 	if(!$is_leader){
 	echo "<div class=\"form-group\">\n";
 	echo "<label class=\"col-md-4 control-label\" for=\"sem_select\">Semester:</label>\n";
 	echo "<div class=\"col-md-4\">";
 	echo "<select id=\"sem_select\" name=\"prefix\" class=\"form-control\">";
-	
+
 	$count = 0;
 	while($row = mysqli_fetch_row($result)){
 		if($count == 0){
@@ -262,34 +262,34 @@ $(document).ready (function(){
 			echo "<option value=\"" . $row[1] . "\">" . $row[0] . "</option>\n";
 		}
 		$count++;
-		
+
 	}
-	
+
 	echo "</select>";
 	echo "</div>";
 	echo "</div>";
-	
+
 	} else {
 		$row = mysqli_fetch_row($result);
 		$prefix = $row[1];
 		echo "<input type=\"hidden\" name=\"prefix\" value=\"$prefix\"/>\n";
 	}?>
-	
-	
+
+
 
 <div class="form-group">
-  <label class="col-md-4 control-label" for="excptn_select">Exemption:</label>  
+  <label class="col-md-4 control-label" for="excptn_select">Exemption:</label>
   <div class="col-md-4">
-  <select id="excptn_select" name="excptn_id" class="form-control"></select> 
+  <select id="excptn_select" name="excptn_id" class="form-control"></select>
   </div>
-</div>	
-	
+</div>
+
 
 <div class="form-group">
-  <label class="col-md-4 control-label" for="user_name">Student:</label>  
+  <label class="col-md-4 control-label" for="user_name">Student:</label>
   <div class="col-md-4">
   <input id="user_name" placeholder="Student Name" class="form-control input-md" required type="text">
-  <input type="hidden" id="usr_submit_id" name="pstu_id" value=""/>  
+  <input type="hidden" id="usr_submit_id" name="pstu_id" value=""/>
   </div>
 </div>
 
@@ -327,7 +327,7 @@ $(document).ready (function(){
     </table>
 <div class="form-group">
   <label class="col-md-4 control-label" for="error_area"></label>
-  <div class="col-md-4">                     
+  <div class="col-md-4">
     <span id="error_area"></span>
   </div>
 </div>

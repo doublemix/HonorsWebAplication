@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 require_once "../../SCRIPTS/db_connect.inc";
@@ -26,7 +26,7 @@ $(document).ready (function(){
 			  $("#error_area").fadeIn(2000).delay( 6000 ).fadeOut(2000);
 			 $(this).dequeue();
 			  });
-			 
+
 			  } else {
 			 var err = "Error: " + result;
 			  $("#error_area").queue(function(){
@@ -54,36 +54,36 @@ var grid = $("#grid-command-buttons-probations").bootgrid({
             return "<button id=\"" + row.probation_id + "t0" + "\" type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.probation_id + "\"><i id=\"btn" + row.probation_id +"\" class=\"fa fa-pencil\"></i></button> " +
             	   "<button id=\"" + row.probation_id + "t3" + "\" type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.probation_id + "\" data-probation-name=\"" + row.probation_name + "\"><i id=\"btn" + row.probation_id + "del\" class=\"fa fa-trash-o\"></i></button>";
         },
-    
+
     	"probation_name": function(column, row)
     	{
     		return "<input id=\"" + row.probation_id + "t1" + "\" type=\"text\" class=\"form-control\" maxlength=\"60\" name=\"probation_name\"   data-orig=\"" + row.probation_name + "\" value=\"" + row.probation_name +  "\">";
     	},
-        
+
         "probation_type": function(column, row)
     	{
         	var probation_string = "";
-    		
+
     		probation_string = "<select id=\"" + row.probation_id + "t2" + "\" class=\"form-control\" name=\"probationtype\" data-orig=\"" + row.probation_type + "\" data-row-id=\"" + row.probation_type + "\">";
-    		
+
     		if(row.probation_type == 0){
     			probation_string += "<option value=\"0\" selected>Activity Groups</option>";
     		} else {
     			probation_string += "<option value=\"0\">Activity Groups</option>";
     		}
-    		
+
     		if(row.probation_type == 1){
-    			probation_string += "<option value=\"1\" selected>Academic Events</option>";
+    			probation_string += "<option value=\"1\" selected>CCEs</option>";
     		} else {
-    			probation_string += "<option value=\"1\">Academic Events</option>";
+    			probation_string += "<option value=\"1\">CCEs</option>";
     		}
-    		
+
     		if(row.probation_type == 2){
     			probation_string += "<option value=\"2\" Selected>Community Service</option>";
     		} else {
     			probation_string += "<option value=\"2\">Community Service</option>";
     		}
-    		
+
     		if(row.probation_type == 3){
     			probation_string += "<option value=\"3\" Selected>Academic Probation</option>";
     		} else {
@@ -99,11 +99,11 @@ var grid = $("#grid-command-buttons-probations").bootgrid({
     		} else {
     			probation_string += "<option value=\"5\">Behavioral</option>";
     		}
-    		
+
     		probation_string += "</select>";
-    		
+
     		return probation_string;    	}
-    
+
     }
 }).on("loaded.rs.jquery.bootgrid", function()
 {
@@ -116,10 +116,10 @@ var grid = $("#grid-command-buttons-probations").bootgrid({
         var probation_name = $("#" + id + "t1").val();
 		var button_id = "#btn" + id;
 
-        
+
         $(button_id).removeClass("fa-pencil");
         $(button_id).addClass("fa-cog fa-spin");
-    	
+
         	$.ajax( {
         		type: 'POST',
                 url: '/SCRIPTS/requests/probationsrequest.php',
@@ -138,20 +138,20 @@ var grid = $("#grid-command-buttons-probations").bootgrid({
 				         $("#" + id + "t1").css({"background-color": ""});
 				         $("#" + id + "t2").data({"orig": probation_type});
 				         $("#" + id + "t1").data({"orig": probation_name});
-					}	
-                	
+					}
+
                 	showMessage(data, "Probation Updated");
-                	
+
                 }
              });
-        	
+
         	$(button_id).removeClass("fa-cog fa-spin");
         	$(button_id).addClass("fa-pencil");
     }).end().find(".command-delete").on("click", function(e){
-    		    
-    	
+
+
     	if(confirm("Are you sure you want to delete the Probation: \"" + $(this).data("probation_name") + "\" from the database?")){
-        	
+
         	$.ajax( {
         		type: 'POST',
                 url: '/SCRIPTS/requests/probationsrequest.php',
@@ -162,25 +162,25 @@ var grid = $("#grid-command-buttons-probations").bootgrid({
                 },
                 dataType: "text",
                 success:function(data) {
-                   
+
                 	if(data == "success"){
                 		$("#grid-command-buttons-probations").bootgrid("reload");
                 	} else {
                 		//Do Nothing
                 	}
-                	
+
                 	showMessage(data, "Probation Deleted.");
-                	
+
                 }
              });
-        	
+
         } else {
         	//Do nothing lol
         }
     	     });
 
-    
-    
+
+
 });
 
 
@@ -195,20 +195,20 @@ $(document).on('change','input[data-orig]',function(){
 	} else {
 		$(this).css({"background-color": "#ccffcc"});
 	}
-	
-	
-    
+
+
+
 });
 
 var subbutton = document.getElementById("submitButton");
 $(subbutton).click(function() {
     // Stop the browser from submitting the form.
 
-    
-    
+
+
     var form = $('#probations_form');
     var formData = $(form).serialize();
-    
+
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -221,13 +221,13 @@ $(subbutton).click(function() {
         		$("#grid-command-buttons-probations").bootgrid("reload");
         	} else {
         	}
-        	
+
         	showMessage(result, "Probation Added.");
         }
     })
-    
-    
-    
+
+
+
 });
 
 });
@@ -247,23 +247,23 @@ $(subbutton).click(function() {
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="probation_name">Probation Name:</label>  
+  <label class="col-md-4 control-label" for="probation_name">Probation Name:</label>
   <div class="col-md-4">
-  <input id="probation_name" maxlength="60" name="probation_name" placeholder="Probation Name" class="form-control input-md" required type="text">  
+  <input id="probation_name" maxlength="60" name="probation_name" placeholder="Probation Name" class="form-control input-md" required type="text">
   </div>
 </div>
 <!-- <div class="form-group">
-  <label class="col-md-4 control-label" for="probation_type">Probation Type:</label>  
+  <label class="col-md-4 control-label" for="probation_type">Probation Type:</label>
   <div class="col-md-4">
   <select id="probation_type" name="probation_type" class="form-control input-md" required>
   		<option value="0" selected="selected">Activity Groups</option>
-  		<option value="1">Academic Events</option>
+  		<option value="1">CCEs</option>
   		<option value="2">Community Service</option>
   		<option value="3">Academic</option>
   		<option value="4">Honors Credits</option>
   		<option value="5">Behavioral</option>
-  		
-  </select>  
+
+  </select>
   </div>
 </div>
 -->
@@ -294,10 +294,10 @@ $(subbutton).click(function() {
             </tr>
         </thead>
     </table>
-    
+
 	<div class="form-group">
   <label class="col-md-4 control-label" for="error_area"></label>
-  <div class="col-md-4">                     
+  <div class="col-md-4">
     <span id="error_area"></span>
   </div>
 </div>
