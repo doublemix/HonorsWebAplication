@@ -238,15 +238,18 @@ $(document).ready(function() {
  	echo " </li>\n";
  }**/
 
+echo " <li>Exemptions\n";
+echo "    <ul>\n";
  if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][4] == 1){
 
- 	echo " <li>Exemptions\n";
- 	echo "    <ul>\n";
+ 	echo "      <li data-linkhtml = \"exemptions/verify_exemptions.php\">Verify Exemptions</li>\n";
  	echo " 		<li data-linkhtml = \"exemptions/modify_exemptions.php\">Modify Exemptions</li>\n";
  	echo "      <li data-linkhtml = \"exemption_grants/modify_exemption_grants.php\">Exemption Grants</li>\n";
- 	echo "    </ul>\n";
- 	echo " </li>\n";
+ } else {
+    echo "      <li data-linkhtml = \"exemption_grants/submit_exemption_grants.php\">Submit Exemptions</li>";
  }
+echo "    </ul>\n";
+echo " </li>\n";
 
 
 
