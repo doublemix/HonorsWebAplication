@@ -79,28 +79,28 @@ $(subbutton).click(function() {
     <div>
         Check all that apply<br/>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="athelete_in" />Varsity Athlete OUT of Playing Season (Specify below for half exemption)</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete OUT of Playing Season (Specify below for half exemption)" />Varsity Athlete OUT of Playing Season (Specify below for half exemption)</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="athelete_out" />Varsity Athlete IN Playing Season (Please specify below)</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete IN Playing Season (Please specify below)" />Varsity Athlete IN Playing Season (Please specify below)</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="capstone" />Varsity Athlete IN Playing Season (Please specify below)</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete IN Playing Season (Please specify below)" />Varsity Athlete IN Playing Season (Please specify below)</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="atep_block" />Athetic Training (ATEP) Block</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Athetic Training (ATEP) Block" />Athetic Training (ATEP) Block</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="nano" />Nanoscience Scholar</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Nanoscience Scholar" />Nanoscience Scholar</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="fdg_leader" />FDG Leader</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="FDG Leader" />FDG Leader</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="edu_block" />Professional Semester Education Block</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Professional Semester Education Block" />Professional Semester Education Block</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="other" />Other</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Other" />Other</label>
         </div>
     </div>
 </div>
@@ -109,7 +109,7 @@ $(subbutton).click(function() {
 <div class="form-group">
   <label class="control-label" for="details">Please use this section to elaborate on any items necessary.</label>
   <div>
-    <textarea name="details" maxlength="500" class="form-control" id="com_description"></textarea>
+    <textarea name="details" maxlength="500" class="form-control" id="details"></textarea>
   </div>
 </div>
 
@@ -119,13 +119,13 @@ $(subbutton).click(function() {
     <div>
         Check all that apply<br/>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_full_reason_select[]" value="student_teaching" />Student Teaching</label>
+            <label><input type="checkbox" name="cce_full_reason_select[]" value="Student Teaching" />Student Teaching</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_full_reason_select[]" value="study_abroad" />Studying Abroad</label>
+            <label><input type="checkbox" name="cce_full_reason_select[]" value="Studying Abroad" />Studying Abroad</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_full_reason_select[]" value="internship" />Internship</label>
+            <label><input type="checkbox" name="cce_full_reason_select[]" value="Internship" />Internship</label>
         </div>
     </div>
 </div>

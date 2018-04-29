@@ -77,5 +77,20 @@ function hasPermission($permission) {
     }
 }
 
+function hasAnyOfPermission($permission) {
+    if (!isset($_SESSION["permissions"])) {
+        return false;
+    } else if (is_array($permission)) {
+        foreach ($permission as $indPermission) {
+            if (hasPermission($indPermission)) {
+                return true;
+            }
+        }
+        return false;
+    } else {
+        return $_SESSION["permissions"][$permission] == 1;
+    }
+}
+
 
 ?>

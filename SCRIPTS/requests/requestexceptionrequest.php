@@ -33,6 +33,7 @@ if (isset($_POST["requestexceptionrequest"])) {
             . "FROM users "
             . "JOIN $studentsTable "
             . "ON (users.usr_id = $studentsTable.pstu_id) "
+            . "WHERE users.usr_id = '$userid'"
             . "LIMIT 1"
         );
         if ($result === false) {
@@ -73,8 +74,8 @@ if (isset($_POST["requestexceptionrequest"])) {
 
         $exceptionRequestTable = DB_getPrefixedTable('exception_request');
         $insertQuery = "INSERT INTO $exceptionRequestTable("
-            . "pstu_id, exrq_half_req, exrq_full_req, exrq_details, exrq_status)"
-            . "VALUES ($pstu_id, '$escapedJsonHalf', '$escapedJsonFull', '$escapedDetails', 'Pending')";
+            . "pstu_id, exrq_half_req, exrq_full_req, exrq_details, exrq_status, exrq_reqdate)"
+            . "VALUES ($pstu_id, '$escapedJsonHalf', '$escapedJsonFull', '$escapedDetails', 'Pending', NOW())";
 
         if (!DB_executeQuery($insertQuery)) {
             echo "Error creating record";
