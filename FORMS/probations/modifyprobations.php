@@ -66,11 +66,11 @@ var grid = $("#grid-command-buttons-probations").bootgrid({
 
     		probation_string = "<select id=\"" + row.probation_id + "t2" + "\" class=\"form-control\" name=\"probationtype\" data-orig=\"" + row.probation_type + "\" data-row-id=\"" + row.probation_type + "\">";
 
-    		if(row.probation_type == 0){
-    			probation_string += "<option value=\"0\" selected>Activity Groups</option>";
-    		} else {
-    			probation_string += "<option value=\"0\">Activity Groups</option>";
-    		}
+//    		if(row.probation_type == 0){
+//    			probation_string += "<option value=\"0\" selected>Activity Groups</option>";
+//    		} else {
+//    			probation_string += "<option value=\"0\">Activity Groups</option>";
+//    		}
 
     		if(row.probation_type == 1){
     			probation_string += "<option value=\"1\" selected>CCEs</option>";

@@ -503,7 +503,7 @@ $(document).ready (function(){
 				<th data-column-id="perm_exemptions" data-type="numeric" data-formatter="perm_exemptions">Exemptions</th>
                 <th data-column-id="perm_fdg" data-formatter="perm_fdg" >FDG</th>
                 <th data-column-id="perm_academic_events" data-formatter="perm_academic_events" >CCEs</th>
-                <th data-column-id="perm_activity_groups" data-formatter="perm_activity_groups" >Activity Groups</th>
+<!--                <th data-column-id="perm_activity_groups" data-formatter="perm_activity_groups" >Activity Groups</th>-->
                 <th data-column-id="perm_comm_serv" data-formatter="perm_comm_serv" >Comm Service</th>
                 <th data-column-id="perm_pif" data-formatter="perm_pif" >PIF</th>
                 <th data-column-id="perm_image_slides" data-formatter="perm_image_slides" >Image Slides</th>

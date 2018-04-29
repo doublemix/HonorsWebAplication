@@ -307,8 +307,8 @@ while($row = mysqli_fetch_row($result)){
   <label class="col-md-4 control-label" for="excptn_type">Exemption Type:</label>
   <div class="col-md-4">
   <select id="excptn_type" name="excptn_type" class="form-control input-md" required>
-  		<option value="1" selected="selected">Activity Groups</option>
-  		<option value="2">Academic Events</option>
+<!--  		<option value="1" selected="selected">Activity Groups</option>-->
+  		<option value="2" selected="selected">CCEs</option>
   		<option value="3">Community Service</option>
   		<option value="4">FDG Groups</option>
 
