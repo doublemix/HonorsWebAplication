@@ -27,6 +27,7 @@ require_once '../semester_tables/create_current_fdg_table.inc';
 require_once '../semester_tables/create_currentstudents_table.inc';
 require_once '../semester_tables/create_exception_grants_table.inc';
 require_once '../semester_tables/create_exceptions_table.inc';
+require_once '../semester_tables/create_exception_request_table.inc';
 require_once '../semester_tables/create_fdg_attendence_table.inc';
 require_once '../semester_tables/create_fdg_event_attendence_table.inc';
 require_once '../semester_tables/create_fdg_event_table.inc';
@@ -251,25 +252,27 @@ function createTables($prefix, $conn){
 													if(createActivityGroupStatsTable($conn, $prefix) === true){
 														if(createAcademicEventsTable($conn, $prefix) === true){
 															if(createAcademicEventAttendenceTable($conn, $prefix) === true){
-																		if(createComServTable($conn, $prefix) === true){
-																			if(createExceptionsTable($conn, $prefix) === true){
-																				if(createExceptionGrantsTable($conn, $prefix) === true){
-																					if(createPifTable($conn, $prefix) === true){
-																						if(createPifStatsTable($conn, $prefix) === true){
-																							if(createEventsTable($conn, $prefix) === true){
-                                                                                                if (createCceRsvpTable($conn, $prefix) === true){
-                                                                                                    if(createDatesView($conn, $prefix) === true){
-                                                                                                        if(createStatsView($conn, $prefix) === true){
-                                                                                                            return true;
-                                                                                                        }
+                                                                if(createComServTable($conn, $prefix) === true){
+                                                                    if(createExceptionsTable($conn, $prefix) === true){
+                                                                        if(createExceptionGrantsTable($conn, $prefix) === true){
+                                                                            if (createExceptionRequestTable($conn, $prefix) === true){
+                                                                                if(createPifTable($conn, $prefix) === true){
+                                                                                    if(createPifStatsTable($conn, $prefix) === true){
+                                                                                        if(createEventsTable($conn, $prefix) === true){
+                                                                                            if (createCceRsvpTable($conn, $prefix) === true){
+                                                                                                if(createDatesView($conn, $prefix) === true){
+                                                                                                    if(createStatsView($conn, $prefix) === true){
+                                                                                                        return true;
                                                                                                     }
                                                                                                 }
                                                                                             }
-																						}
-																					}
-																				}
-																			}
-																		}
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
 															}
 														}
 													}
