@@ -174,11 +174,11 @@ $(document).ready (function(){
 
 </script>
 
-<form id="addcom_serv_form" method="post" name="communityservicerequest" class="form-horizontal">
+<form id="exemption_grant_verify_form" method="post" name="exemptionrequest" class="form-horizontal">
 <fieldset>
 
 <!-- Form Name -->
-<legend>Community Service Review</legend>
+<legend>Exemption Grant Request Review</legend>
 
 <div class="form-group">
     <label class="col-md-4 control-label" for="sem_select">Semester:</label>
@@ -242,7 +242,7 @@ $(document).ready (function(){
 <div class="form-group">
     <label class="col-md-4 control-label" for="details">Additional Details:</label>
     <div class="col-md-4">
-        <textarea name="com_description" class="form-control" id="details" readonly></textarea>
+        <textarea name="details" class="form-control" id="details" readonly></textarea>
     </div>
 </div>
 
@@ -273,7 +273,7 @@ $(document).ready (function(){
 
 </fieldset>
 <input type="hidden" name="verify_exemption_request" value="1"/>
-<input id="exrq_id" type="hidden" name="com_id" value=""/>
+<input id="exrq_id" type="hidden" name="exrq_id" value=""/>
 
 </form>
 

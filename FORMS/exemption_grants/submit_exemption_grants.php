@@ -11,7 +11,7 @@ require_once "../../SCRIPTS/db_utils.php";
 function showMessage(result){
 	 if(result === "success"){
 		  $("#error_area").queue(function(){
-		  $("#error_area").text("Exemption Grant Reported.");
+		  $("#error_area").text("Exemption Grant Requested.");
 		  $("#error_area").css("color", "green");
 		  $("#error_area").fadeIn(2000).delay( 6000 ).fadeOut(2000);
 		 $(this).dequeue();
@@ -79,13 +79,13 @@ $(subbutton).click(function() {
     <div>
         Check all that apply<br/>
         <div class="checkbox">
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete IN Playing Season (Please specify below)" />Varsity Athlete IN Playing Season (Please specify below)</label>
+        </div>
+        <div class="checkbox">
             <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete OUT of Playing Season (Specify below for half exemption)" />Varsity Athlete OUT of Playing Season (Specify below for half exemption)</label>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete IN Playing Season (Please specify below)" />Varsity Athlete IN Playing Season (Please specify below)</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete IN Playing Season (Please specify below)" />Varsity Athlete IN Playing Season (Please specify below)</label>
+            <label><input type="checkbox" name="cce_half_reason_select[]" value="Completing a Capstone Project" />Completing a Capstone Project</label>
         </div>
         <div class="checkbox">
             <label><input type="checkbox" name="cce_half_reason_select[]" value="Athetic Training (ATEP) Block" />Athetic Training (ATEP) Block</label>
