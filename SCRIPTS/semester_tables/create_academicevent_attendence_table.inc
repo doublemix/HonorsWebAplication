@@ -17,7 +17,7 @@ function createAcademicEventAttendenceTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_academicevent_attendence (
+	"create table if not exists " . $prefix . "_academicevent_attendence (
 
 acad_att_id integer not null auto_increment,
 
@@ -31,14 +31,14 @@ foreign key (pstu_id) references " . $prefix . "_currentstudents(pstu_id)  on de
 
 foreign key (acad_id) references " . $prefix . "_academicevents(acad_id)  on delete cascade,
 
-UNIQUE KEY one_acad_event (acad_id, pstu_id)		
-		
+UNIQUE KEY one_acad_event (acad_id, pstu_id)
+
 ) ENGINE = INNODB";
 
 	$result = mysqli_query($conn, $statement);
-	
+
 	if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_academicevent_attendence Table.";
 		echo "Please contact the System Administrator.";
 		return false;

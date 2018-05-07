@@ -17,7 +17,7 @@ function createActivityGroupLeadersTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_activitygroupleaders (
+	"create table if not exists " . $prefix . "_activitygroupleaders (
 
 ag_leaders integer not null auto_increment,
 
@@ -29,16 +29,16 @@ pstu_id integer not null,
 
 foreign key (ag_id) references " . $prefix . "_activitygroup(ag_id)  on delete cascade,
 
-foreign key (pstu_id) references " . $prefix . "_currentstudents(pstu_id)  on delete cascade,		
-		
-UNIQUE KEY one_leader (ag_id, pstu_id)		
-		
+foreign key (pstu_id) references " . $prefix . "_currentstudents(pstu_id)  on delete cascade,
+
+UNIQUE KEY one_leader (ag_id, pstu_id)
+
 ) ENGINE = INNODB";
 
-	$result = mysqli_query($conn, $statement);	
-	
+	$result = mysqli_query($conn, $statement);
+
 if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_activitygroupleaders Table.";
 		echo "Please contact the System Administrator.";
 		return false;

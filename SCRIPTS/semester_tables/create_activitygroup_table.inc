@@ -17,7 +17,7 @@ function createActivityGroupTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_activitygroup (
+	"create table if not exists " . $prefix . "_activitygroup (
 
 ag_id integer not null auto_increment,
 
@@ -28,19 +28,19 @@ ag_title varchar(40) not null,
 ag_description varchar(500) not null,
 
 ag_imagepath varchar(30),
-			
+
 ag_bg_color varchar(7) default '#0000ff',
 
 ag_ft_color varchar(7) default '#ffffff',
-			
+
 UNIQUE(ag_title)
 
 ) ENGINE = INNODB";
 
-	$result = mysqli_query($conn, $statement);	
-	
+	$result = mysqli_query($conn, $statement);
+
 if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_activitygroup Table.";
 		echo "Please contact the System Administrator.";
 		return false;

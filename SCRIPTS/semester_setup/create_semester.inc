@@ -38,7 +38,7 @@ require_once '../semester_tables/create_fdg_reports_table.inc';
 require_once '../semester_tables/create_pif_stats_table.inc';
 require_once '../semester_tables/create_pif_table.inc';
 require_once '../semester_tables/create_events_table.inc';
-require_once '../semester_tables/create_cce_rsvp.inc';
+require_once '../semester_tables/create_cce_rsvp_table.inc';
 
 //Bring in the Views created using the tables
 require_once '../views/dates_view.inc';

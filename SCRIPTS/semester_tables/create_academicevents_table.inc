@@ -17,7 +17,7 @@ function createAcademicEventsTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_academicevents (
+	"create table if not exists " . $prefix . "_academicevents (
 
 acad_id integer not null auto_increment,
 
@@ -28,9 +28,9 @@ acad_title varchar(60) not null,
 acad_description varchar(200) not null,
 
 acad_start_date datetime not null,
-			
+
 acad_end_date datetime not null,
-			
+
 acad_bg_color varchar(7) default '#0000ff',
 
 acad_ft_color varchar(7) default '#ffffff'
@@ -38,9 +38,9 @@ acad_ft_color varchar(7) default '#ffffff'
 ) ENGINE = INNODB";
 
 $result = mysqli_query($conn, $statement);
-	
+
 	if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_academicevents Table.";
 		echo "Please contact the System Administrator.";
 		return false;

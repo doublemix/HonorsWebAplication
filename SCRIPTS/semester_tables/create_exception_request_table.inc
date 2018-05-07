@@ -12,7 +12,7 @@ Must run after the creation of the currentstudents and exceptions tables
 function createExceptionRequestTable($conn, $prefix){
 
 	$statement = <<<EOT
-CREATE TABLE {$prefix}_exception_request (
+CREATE TABLE IF NOT EXISTS {$prefix}_exception_request (
     exrq_id INT(11) NOT NULL AUTO_INCREMENT,
     pstu_id INT(11) NOT NULL,
     exrq_half_req VARCHAR(255) DEFAULT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE {$prefix}_exception_request (
     exrq_reqdate VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (exrq_id),
     UNIQUE INDEX (pstu_id),
-    FOREIGN KEY (pstu_id) REFERENCES {$prefix}_currentstudents(pstu_id) ON DELETE NO ACTION ON UPDATE RESTRICT
+    FOREIGN KEY (pstu_id) REFERENCES {$prefix}_currentstudents(pstu_id) ON DELETE CASCADE
 )ENGINE = INNODB
 EOT;
 

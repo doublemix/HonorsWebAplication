@@ -17,7 +17,7 @@ function createExceptionGrantsTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_exception_grants (
+	"create table if not exists " . $prefix . "_exception_grants (
 
 grant_id integer not null auto_increment,
 
@@ -30,15 +30,15 @@ pstu_id integer not null,
 foreign key (pstu_id) references " . $prefix . "_currentstudents(pstu_id)  on delete cascade,
 
 foreign key (excptn_id) references  " . $prefix . "_exceptions(excptn_id)  on delete cascade,
-		
-unique key only_grant_each_exception_once_per_student(excptn_id, pstu_id)		
+
+unique key only_grant_each_exception_once_per_student(excptn_id, pstu_id)
 
 ) ENGINE = INNODB";
 
 	$result = mysqli_query($conn, $statement);
-	
+
 if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_exception_grants Table.";
 		echo "Please contact the System Administrator.";
 		return false;

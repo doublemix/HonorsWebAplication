@@ -26,7 +26,7 @@ function createExceptionsTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_exceptions (
+	"create table if not exists " . $prefix . "_exceptions (
 
 excptn_id integer not null auto_increment,
 

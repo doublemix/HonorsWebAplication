@@ -17,7 +17,7 @@ function createCurrentFDGTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_fdg (
+	"create table if not exists " . $prefix . "_fdg (
 
 pfdg_id integer not null,
 
@@ -28,9 +28,9 @@ foreign key (pfdg_id) references fdg(fdg_id)   on delete cascade
 ) ENGINE = INNODB";
 
 	$result = mysqli_query($conn, $statement);
-	
+
 if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_fdg Table.";
 		echo "Please contact the System Administrator.";
 		return false;

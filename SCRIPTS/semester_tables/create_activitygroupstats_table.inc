@@ -17,7 +17,7 @@ function createActivityGroupStatsTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_activitygroupstats (
+	"create table if not exists " . $prefix . "_activitygroupstats (
 
 agstat_id integer not null auto_increment,
 
@@ -30,15 +30,15 @@ agses_id integer not null,
 foreign key (pstu_id) references " . $prefix . "_currentstudents(pstu_id)  on delete cascade,
 
 foreign key (agses_id) references " . $prefix . "_activitygroupsession(agses_id)  on delete cascade,
-		
+
 unique key one_stat_per_agses (pstu_id, agses_id)
-		
+
 ) ENGINE = INNODB";
 
 	$result = mysqli_query($conn, $statement);
-	
+
 if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_activitygroupstats Table.";
 		echo "Please contact the System Administrator.";
 		return false;

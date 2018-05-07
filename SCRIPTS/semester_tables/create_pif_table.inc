@@ -17,7 +17,7 @@ function createPifTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_pif (
+	"create table if not exists " . $prefix . "_pif (
 
 pif_id integer not null auto_increment,
 
@@ -25,12 +25,12 @@ primary key (pif_id),
 
 pif_start_date datetime not null,
 
-pif_end_date datetime not null,			
-			
+pif_end_date datetime not null,
+
 pif_title varchar(60) not null,
-			
+
 pif_description varchar(250),
-			
+
 pif_bg_color varchar(7) default '#0000ff',
 
 pif_ft_color varchar(7) default '#ffffff'
@@ -38,9 +38,9 @@ pif_ft_color varchar(7) default '#ffffff'
 ) ENGINE = INNODB";
 
 	$result = mysqli_query($conn, $statement);
-	
+
 if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_pif Table.";
 		echo "Please contact the System Administrator.";
 		return false;

@@ -17,7 +17,7 @@ function createFDGLeadersTable($conn, $prefix){
 
 	$statement =
 
-	"create table " . $prefix . "_fdg_leaders (
+	"create table if not exists " . $prefix . "_fdg_leaders (
 
 pfdg_leader_id integer not null auto_increment,
 
@@ -31,14 +31,14 @@ foreign key (pfdg_id) references " . $prefix . "_fdg(pfdg_id)   on delete cascad
 
 foreign key (pstu_id) references " . $prefix . "_currentstudents(pstu_id)   on delete cascade,
 
-unique(pstu_id)		
-		
+unique(pstu_id)
+
 ) ENGINE = INNODB";
 
 	$result = mysqli_query($conn, $statement);
-	
+
 if($result == false){
-		
+
 		echo "There was an error creating the " . $prefix ."_fdg_leaders Table.";
 		echo "Please contact the System Administrator.";
 		return false;

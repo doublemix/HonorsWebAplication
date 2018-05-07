@@ -6,6 +6,10 @@ $prefix = $argv[1];
 
 $conn = DBConnect();
 
+if (mysqli_query($conn, "drop table " . $prefix . "_cce_rsvp")== false) {
+    echo "\nFailed to drop cce_rsvp table";
+}
+
 if(mysqli_query($conn, "drop table " . $prefix . "_events")== false){
 	echo "\nFailed to drop events\n";
 }
@@ -16,6 +20,10 @@ if(mysqli_query($conn, "drop table " . $prefix . "_pif_stats")== false){
 
 if(mysqli_query($conn, "drop table " . $prefix . "_pif")== false){
 	echo "\nFailed to drop pif\n";
+}
+
+if (mysqli_query($conn, "drop table " . $prefix . "_exception_request")== false) {
+    echo "\nFailed to drop exception_request table";
 }
 
 if(mysqli_query($conn, "drop table " . $prefix . "_exception_grants")== false){
