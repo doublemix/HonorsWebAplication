@@ -21,6 +21,7 @@ if (isset($_POST["requestexceptionrequest"])) {
     $opcode = filter_input(INPUT_POST, "opcode");
     if ($opcode === null) {
         echo "Opcode not set";
+        DBClose($conn);
         return;
     }
 
@@ -38,6 +39,7 @@ if (isset($_POST["requestexceptionrequest"])) {
         );
         if ($result === false) {
             echo "Not a current student";
+            DBClose($conn);
             return;
         }
         $pstu_id = $result["pstu_id"];
@@ -62,6 +64,7 @@ if (isset($_POST["requestexceptionrequest"])) {
 
         if (count($halfExemptionReasons) + count($fullExemptionReasons) <= 0) {
             echo "No reason selected.";
+            DBClose($conn);
             return;
         }
 
@@ -73,13 +76,38 @@ if (isset($_POST["requestexceptionrequest"])) {
         $escapedDetails = $conn->real_escape_string($details);
 
         $exceptionRequestTable = DB_getPrefixedTable('exception_request');
-        $insertQuery = "INSERT INTO $exceptionRequestTable("
-            . "pstu_id, exrq_half_req, exrq_full_req, exrq_details, exrq_status, exrq_reqdate)"
-            . "VALUES ($pstu_id, '$escapedJsonHalf', '$escapedJsonFull', '$escapedDetails', 'Pending', NOW())";
 
-        if (!DB_executeQuery($insertQuery)) {
-            echo "Error creating record";
-            return;
+        // check to see if there is an existing record, update it if so (and allowed), else create new
+        $checkQuery = "SELECT exrq_id, exrq_status FROM $exceptionRequestTable WHERE pstu_id = $pstu_id LIMIT 1";
+        $existingRecord = DB_executeAndFetchOne($checkQuery);
+        if ($existingRecord === null) {
+            // no existing record
+            $insertQuery = "INSERT INTO $exceptionRequestTable("
+                . "pstu_id, exrq_half_req, exrq_full_req, exrq_details, exrq_status, exrq_reqdate)"
+                . "VALUES ($pstu_id, '$escapedJsonHalf', '$escapedJsonFull', '$escapedDetails', 'Pending', NOW())";
+
+            if (!DB_executeQuery($insertQuery)) {
+                echo "Error creating record";
+                DBClose($conn);
+                return;
+            }
+        } else {
+            if ($existingRecord["exrq_status"] !== "Pending") {
+                echo "Cannot update this request";
+                DBClose($conn);
+                return;
+            }
+            $updateQuery = "UPDATE $exceptionRequestTable SET "
+                . "exrq_half_req = '$escapedJsonHalf', "
+                . "exrq_full_req = '$escapedJsonFull', "
+                . "exrq_details = '$escapedDetails' "
+                . "WHERE pstu_id = $pstu_id "
+                . "LIMIT 1";
+            if (!DB_executeQuery($updateQuery)) {
+                echo "Error updating record";
+                DBClose($conn);
+                return;
+            }
         }
 
         echo "success";

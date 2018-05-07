@@ -9,7 +9,7 @@ if(isset($_SESSION["userid"])){
 	$conn = DBConnect();
 
 	if (!getPermissions($conn) || !hasAnyOfPermission([PERM_ADMIN, PERM_WORKER, PERM_EXEMPTIONS])) {
-        echo json_encode([]);
+        echo json_encode(null);
         die();
     }
 
@@ -33,14 +33,14 @@ if(isset($_SESSION["userid"])){
     file_put_contents("log.txt", mysqli_error($conn));
 
     if ($result === false) {
-        echo json_encode([]);
+        echo json_encode(null);
         die();
     }
 
     $row = mysqli_fetch_assoc($result);
 
     if ($row === false) {
-        echo json_encode([]);
+        echo json_encode(null);
         die();
     }
 

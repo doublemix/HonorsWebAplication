@@ -53,7 +53,8 @@ if (isset($_POST["verifyexceptiongrants"])) {
             return;
         }
 
-        $result = DB_executeAndFetchOne("SELECT "
+        $result = DB_executeAndFetchOne(
+            "SELECT "
             . "pstu_id "
             . "FROM {$prefix}_exception_request "
             . "WHERE exrq_id = $exrq_id "
@@ -70,7 +71,7 @@ if (isset($_POST["verifyexceptiongrants"])) {
             return;
         }
 
-        $result = deleteExceptionRequest($exrq_id, $prefix, $conn);
+        $result = acceptExceptionRequest($exrq_id, $prefix, $conn);
 
         if ($result === true) {
             echo "success";

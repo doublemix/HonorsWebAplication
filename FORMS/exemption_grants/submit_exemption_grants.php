@@ -3,9 +3,9 @@
 session_start();
 
 require_once "../../SCRIPTS/db_utils.php";
+require_once "./exemption_reasons.php";
 
 ?><body>
-
 <script type="text/javascript">
 
 function showMessage(result){
@@ -29,36 +29,73 @@ function showMessage(result){
 	}
 }
 
+function checkCurrentRequestStatus() {
+    $.ajax({
+        type: 'POST',
+        url: 'SCRIPTS/json_source/exemption_requests/check_for_existing_exception_request.php',
+        cache: false,
+        dataType: 'json',
+        success: function(result){
+            if (result !== null) {
+                // an existing request was found
+
+                // show the status line
+                $('#status-group').show();
+                $('#status-box').text(result.exrq_status);
+
+                // update checkboxes
+                var halfExemptionReasons = JSON.parse(result.exrq_half_req);
+                var fullExemptionReasons = JSON.parse(result.exrq_full_req);
+                $('#cce_half_reason_list :checkbox').filter(function () {
+                    return $.inArray(this.value, halfExemptionReasons) >= 0;
+                }).prop('checked', true);
+                $('#cce_full_reason_list :checkbox').filter(function () {
+                    return $.inArray(this.value, fullExemptionReasons) >= 0;
+                }).prop('checked', true);
+
+                // show details
+                $('#details').val(result.exrq_details);
+
+                if (result.exrq_status !== 'Pending') {
+                    // if it's no longer pending (then it's accepted or rejected and should not be editable
+                    $('#submit_exception_grant_form input, #submit_exception_grant_form textarea, #submit_exception_grant_form button')
+                            .prop('disabled', true);
+                }
+
+            }
+        }
+    });
+}
+
 $(document).ready (function(){
 
 var subbutton = document.getElementById("submitButton");
 
-$(subbutton).click(function() {
-    // Stop the browser from submitting the form.
+    $(subbutton).click(function() {
+        // Stop the browser from submitting the form.
 
-    var form = $('#submit_exception_grant_form');
-    var formData = $(form).serialize();
+        var form = $('#submit_exception_grant_form');
+        var formData = $(form).serialize();
 
-    $.ajax({
-        type: 'POST',
-        url: "SCRIPTS/requests/requestexceptionrequest.php",
-        data: formData,
-        cache: false,
-        dataType: "text",
-        success: function(result){
-        	if(result === "success"){
-        		$("#submit_exception_grant_form").trigger("reset");
-        	} else {
-        	}
+        $.ajax({
+            type: 'POST',
+            url: "SCRIPTS/requests/requestexceptionrequest.php",
+            data: formData,
+            cache: false,
+            dataType: "text",
+            success: function(result){
+                if(result === "success"){
+                    checkCurrentRequestStatus();
+                } else {
+                }
 
-        	showMessage(result);
-        }
-    })
+                showMessage(result);
+            }
+        })
 
+    });
 
-
-});
-
+    checkCurrentRequestStatus();
 
 });
 
@@ -73,35 +110,24 @@ $(subbutton).click(function() {
 <!-- Form Name -->
 <legend>Request Exemption</legend>
 
+<div class="form-group" id="status-group" style="display: none;">
+    <label class="control-label">Request Status: <span id="status-box"></span></label>
+</div>
+
 <!-- Checkbox Group -->
 <div class="form-group">
     <label for="cce_half_reason_select[]" class="control-label">I am requesting exemption from TWO CCE's for the following reason(s):</label>
-    <div>
+    <div id="cce_half_reason_list">
         Check all that apply<br/>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete IN Playing Season (Please specify below)" />Varsity Athlete IN Playing Season (Please specify below)</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Varsity Athlete OUT of Playing Season (Specify below for half exemption)" />Varsity Athlete OUT of Playing Season (Specify below for half exemption)</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Completing a Capstone Project" />Completing a Capstone Project</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Athetic Training (ATEP) Block" />Athetic Training (ATEP) Block</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Nanoscience Scholar" />Nanoscience Scholar</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="FDG Leader" />FDG Leader</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Professional Semester Education Block" />Professional Semester Education Block</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_half_reason_select[]" value="Other" />Other</label>
-        </div>
+        <?php
+        foreach (HALF_EXEMPTION_REASONS as $key => $value) {
+            ?>
+            <div class="checkbox">
+                <label><input type="checkbox" name="cce_half_reason_select[]" value="<?php echo htmlspecialchars($key); ?>"><?php echo htmlspecialchars($value); ?></label>
+            </div>
+            <?php
+        }
+        ?>
     </div>
 </div>
 
@@ -116,17 +142,17 @@ $(subbutton).click(function() {
 <!-- Checkbox Group -->
 <div class="form-group">
     <label for="cce_full_reason_select[]" class="control-label">I am requesting exemption from ALL CCE's for the following reason(s):</label>
-    <div>
+    <div id="cce_full_reason_list">
         Check all that apply<br/>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_full_reason_select[]" value="Student Teaching" />Student Teaching</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_full_reason_select[]" value="Studying Abroad" />Studying Abroad</label>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="cce_full_reason_select[]" value="Internship" />Internship</label>
-        </div>
+        <?php
+        foreach (FULL_EXEMPTION_REASONS as $key => $value) {
+            ?>
+            <div class="checkbox">
+                <label><input type="checkbox" name="cce_full_reason_select[]" value="<?php echo htmlspecialchars($key); ?>"><?php echo htmlspecialchars($value); ?></label>
+            </div>
+            <?php
+        }
+        ?>
     </div>
 </div>
 

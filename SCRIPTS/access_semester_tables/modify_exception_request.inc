@@ -14,20 +14,22 @@ require_once '../get_permissions.inc';
 
 const EXEMPTION_PERMISSIONS = [PERM_ADMIN, PERM_WORKER, PERM_EXEMPTIONS];
 
-function deleteExceptionRequest($exrq_id, $prefix, $conn){
+function acceptExceptionRequest($exrq_id, $prefix, $conn){
 
 	getPermissions($conn);
 
     if (!hasAnyOfPermission(EXEMPTION_PERMISSIONS)) {
-		return "You do not have permissions to delete exemption requests.";
-	}
+        return "You do not have permissions to accept exemption requests.";
+    }
 
-    $sql = "DELETE FROM " . $prefix . "_exception_request WHERE exrq_id = " . $exrq_id;
+    $sql = "UPDATE " . $prefix . "_exception_request "
+        . "SET exrq_status = 'Accepted' "
+        . "WHERE exrq_id = " . $exrq_id;
 
 	$result = mysqli_query($conn, $sql);
 
 	if($result == false){
-		return "Failed to delete exemption request.";
+		return "Failed to accept exemption request.";
 	} else {
 		return true;
 	}

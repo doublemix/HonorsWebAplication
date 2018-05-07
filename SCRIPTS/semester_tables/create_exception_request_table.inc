@@ -21,9 +21,9 @@ CREATE TABLE {$prefix}_exception_request (
     exrq_status VARCHAR(255) NOT NULL DEFAULT 'Pending',
     exrq_reqdate VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (exrq_id),
+    UNIQUE INDEX (pstu_id),
     FOREIGN KEY (pstu_id) REFERENCES {$prefix}_currentstudents(pstu_id) ON DELETE NO ACTION ON UPDATE RESTRICT
-)
-ENGINE = INNODB
+)ENGINE = INNODB
 EOT;
 
 	$result = mysqli_query($conn, $statement);

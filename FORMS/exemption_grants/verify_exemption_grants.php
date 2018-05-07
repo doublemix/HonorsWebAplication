@@ -12,6 +12,7 @@ session_start();
 
 require "../../SCRIPTS/db_utils.php";
 require "../../SCRIPTS/get_permissions.inc";
+require "./exemption_reasons.php";
 
 if(!hasAnyOfPermission([PERM_ADMIN, PERM_WORKER, PERM_EXEMPTIONS])){
 	header("location: index.php");
@@ -21,6 +22,8 @@ if(!hasAnyOfPermission([PERM_ADMIN, PERM_WORKER, PERM_EXEMPTIONS])){
 ?><body>
 
 <script type="text/javascript">
+
+var reasonMap = <?php echo json_encode(array_merge(HALF_EXEMPTION_REASONS, FULL_EXEMPTION_REASONS)); ?>;
 
 function showMessage(result, success){
     if(result === "success"){
@@ -63,12 +66,12 @@ $(document).ready (function(){
                     const halfCceList = $("#half_cce_list");
                     halfCceList.empty();
                     JSON.parse(result.exrq_half_req).forEach(function (reason) {
-                        $("<li></li>", { text: reason }).appendTo(halfCceList);
+                        $("<li></li>", { text: reasonMap[reason] }).appendTo(halfCceList);
                     })
                     const fullCceList = $("#full_cce_list");
                     fullCceList.empty();
                     JSON.parse(result.exrq_full_req).forEach(function (reason) {
-                        $("<li></li>", { text: reason }).appendTo(fullCceList);
+                        $("<li></li>", { text: reasonMap[reason] }).appendTo(fullCceList);
                     });
 
                 } else {
@@ -233,7 +236,7 @@ $(document).ready (function(){
 
 <div class="form-group">
     <label class="col-md-4 control-label">Half CCE Exemption Reason(s):</label>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <ul id="half_cce_list"></ul>
     </div>
 </div>
@@ -248,7 +251,7 @@ $(document).ready (function(){
 
 <div class="form-group">
     <label class="col-md-4 control-label">Full CCE Exemption Reason(s):</label>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <ul id="full_cce_list"></ul>
     </div>
 </div>
