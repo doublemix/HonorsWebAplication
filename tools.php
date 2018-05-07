@@ -7,6 +7,8 @@
         On Behalf of Lock Haven's
         GHP.
 
+        Updated by: Mitchel Myers, Tylor Lenskold, Conner Williams
+
 **********************************/
 
 session_start();
@@ -324,18 +326,6 @@ echo " </li>\n";
 	echo "			<li data-linkhtml = \"password/password_change.php\">Change Password</li>\n";
 	echo "		</ul>\n";
 	echo " </li>\n";
-
- if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][8] == 1){
-
- 	echo " <li>PIF\n";
- 	echo "    <ul>\n";
- 	echo " 		<li data-linkhtml = \"pif/add_pif.php\">Add PIF</li>\n";
- 	echo "      <li data-linkhtml = \"pif/modify_pif.php\">Update PIF</li>\n";
- 	echo "      <li data-linkhtml = \"pif_stats/modify_pif_stats.php\">PIF Attendance</li>\n";
- 	echo "    </ul>\n";
- 	echo " </li>\n";
-
-  }
 
   if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][12] == 1){
 
