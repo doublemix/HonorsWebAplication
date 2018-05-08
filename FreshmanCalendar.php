@@ -24,21 +24,21 @@ $conn = DBConnect();
  HTML_StartHead();
 
  AddTitle("Freshman Calendar");
- 
+
  //CSS
- 
+
 
  //AddCSS( "bootstrap.min.css");
   AddCSS( "jquery-ui.min.css");
  AddCSS("fullcalendar.min.css");
- 
+
 //AddCSS("fullcalendar.print.css");
- 
+
  AddCSS("bootstrap-fullcalendar.css");
  AddCSS( "all.css" );
 AddCSS( "index.css" );
 
- 
+
   //JavaScript
 
  HTML_EndHead();
@@ -52,7 +52,7 @@ AddCSS( "index.css" );
  Body_CreateStickyNav();
  Body_AddScript( "jquery-1.12.3.min.js" );
  ?>
- 
+
  <script type="text/javascript">
 
  $(document).ready(function() {
@@ -65,35 +65,35 @@ AddCSS( "index.css" );
 			center : 'title',
 			right: 'month,agendaWeek,agendaDay'
 			},
-	        eventSources: [<?php 
-				
+	        eventSources: [<?php
+
 				require_once 'SCRIPTS/db_connect.inc';
-				
+
 				$conn = DBConnect();
-				
+
 				$query = "SELECT sem_prefix FROM semesters Order By sem_id desc LIMIT 1";
-				
+
 				$result = mysqli_query($conn, $query);
-				
+
 				if($result !== false){
-				
+
 				$row = mysqli_fetch_row($result);
-				
+
 				$prefix = $row[0];
 				 //                0     1     2       3           4
-				$query = "SELECT pfdg_report_start_date, pfdg_report_end_date, fdg_name, fdg_bg_color, fdg_ft_color FROM $prefix" . "_fdg_reports join fdg ON (pfdg_id = fdg_id)";
-				
+				$query = "SELECT start, end, title, back_color, font_color, event_id, `group` FROM $prefix" . "_dates WHERE event_id IN (2, 6)";
+
 				$result = mysqli_query($conn, $query);
-				
+
 				$count = 0;
-				
+
 				while($row = mysqli_fetch_row($result)){
-				
+
 					if($count != 0){
 						echo ",";
 					}
-					
-					
+
+
 					echo "{\n";
 					echo "	events: [ \n";
 					echo "	{\n";
@@ -105,35 +105,35 @@ AddCSS( "index.css" );
 					echo "color: '" . $row[3] . "',\n";
 					echo "textColor: '" . $row[4] . "'\n";
 					echo "}";
-					
+
 					$count++;
 				}
-				
+
 				}
-				
+
 				?>]
 	    })
 
 	});
 
  </script>
- 
+
 <div id='calendar'></div>
 
 
- <?php 
+ <?php
  echo "</div>\n";
- 	 
- 
 
-  
+
+
+
  Body_AddScript("bootstrap.min.js");
  Body_AddScript( "jquery-ui.min.js" );
  Body_AddScript("moment-with-locales.min.js");
- 
- Body_AddScript("fullcalendar.min.js");	
+
+ Body_AddScript("fullcalendar.min.js");
   Body_AddScript("all.js");
- 
+
  HTML_End();
 
 ?>
