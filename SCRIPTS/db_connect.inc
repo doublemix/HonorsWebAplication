@@ -1,38 +1,41 @@
 <?php
-/***************************
-* db_connect.inc
-*
-* Created By: William Grove
-*
-* Creates a connection between the
-* Database and PHP processor.
-*
-****************************/
-function
- DBConnect() {
 
+/* * *************************
+ * db_connect.inc
+ *
+ * Created By: William Grove
+ * Updated By: Mitchel Myers
+ *
+ * Creates a connection between the
+ * Database and PHP processor.
+ *
+ * ************************** */
 
-$conn = mysqli_connect('127.0.0.1', 'ghpcoc5_butler', 'password', 'ghpcoc5_honors');
+require __DIR__ . '/settings.inc';
 
-  return $conn;
+function DBConnect() {
+    $settings = SETTINGS['database'];
+    $host = $settings['host'];
+    $user = $settings['user'];
+    $pass = $settings['pass'];
+    $db = $settings['db'];
 
+    $conn = mysqli_connect($host, $user, $pass, $db);
 
+    return $conn;
 }
 
+function DBClose($conn) {
 
-function DBClose( $conn ) {
 
+    $result = mysqli_close($conn);
 
-        $result = mysqli_close( $conn );
-
-        return $result;
-
+    return $result;
 }
 
+function removeslashes($string) {
 
-function removeslashes($string){
-
-    $string=implode("",explode("\\",$string));
+    $string = implode("", explode("\\", $string));
 
     return stripslashes(trim($string));
 }
