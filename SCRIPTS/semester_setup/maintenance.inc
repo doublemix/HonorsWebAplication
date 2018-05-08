@@ -12,14 +12,14 @@ require_once '../semester_setup/create_semester.inc';
 function fillSemestersWithTables ($conn) {
     $query = 'SELECT sem_prefix FROM semesters';
 
-    $result = $conn->query($query);
+    $semesterQuery = $conn->query($query);
 
-    if (!$result) {
+    if (!$semesterQuery) {
         return "Error filling semesters with tables";
     }
 
 
-    while ($semester = $result->fetch_assoc()) {
+    while ($semester = $semesterQuery->fetch_assoc()) {
         $prefix = $semester["sem_prefix"];
         $result = createTables($prefix, $conn);
         if ($result !== true) {
