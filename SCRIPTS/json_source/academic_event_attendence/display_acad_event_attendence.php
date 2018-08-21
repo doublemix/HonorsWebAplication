@@ -67,6 +67,10 @@ if ($conn != false) {
 
 	$result = mysqli_query ( $conn, $query );
 
+    if (!$result) {
+        return json_encode(["current" => $current, "rowCount" => 0, "rows" => [], "total" => 0]);
+    }
+
 
 	$res_array = array();
 

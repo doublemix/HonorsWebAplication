@@ -6,7 +6,7 @@ $rows = 25;
 $current = 1;
 $order = "";
 $prefix = "";
-$acad_id = "";
+$event_id = "";
 
 if ($conn != false) {
     $json = array();
@@ -19,8 +19,8 @@ if ($conn != false) {
         die();
     }
 
-    if (isset($_POST["acad_id"])) {
-        $acad_id = removeslashes($_POST["acad_id"]);
+    if (isset($_POST["event_id"])) {
+        $event_id = removeslashes($_POST["event_id"]);
     } else {
         DBClose($conn);
         die();
@@ -58,7 +58,7 @@ if ($conn != false) {
     $searchString = "\"%$searchPhrase%\"";
 
 
-    $rsvpTable = DB_getPrefixedTable('cce_rsvp', $prefix);
+    $rsvpTable = DB_getPrefixedTable('fdg_cce_rsvp', $prefix);
     if (!DB_tableExists($rsvpTable)) {
         DBClose($conn);
         die();
@@ -69,14 +69,14 @@ if ($conn != false) {
         . "FROM $rsvpTable rsvp "
         . "JOIN $studentsTable pstu ON (rsvp.pstu_id = pstu.pstu_id) "
         . "JOIN users usr ON (pstu.pstu_id = usr.usr_id) "
-        . "WHERE rsvp.acad_id = '$acad_id' "
+        . "WHERE rsvp.event_id = '$event_id' "
         . "$order $limit";
 
     $queryResult = $conn->query($sql);
 
     $resultRows = $queryResult->fetch_all(MYSQLI_ASSOC);
 
-    $totalSql = "SELECT rsvp_id FROM $rsvpTable WHERE acad_id = '$acad_id'";
+    $totalSql = "SELECT rsvp_id FROM $rsvpTable WHERE event_id = '$event_id'";
 
     $totalQueryResult = $conn->query($totalSql);
 

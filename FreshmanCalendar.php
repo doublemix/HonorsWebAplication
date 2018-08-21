@@ -80,7 +80,7 @@ AddCSS( "index.css" );
 				$row = mysqli_fetch_row($result);
 
 				$prefix = $row[0];
-				 //                0     1     2       3           4
+				 //                0     1     2       3           4          5
 				$query = "SELECT start, end, title, back_color, font_color, event_id, `group` FROM $prefix" . "_dates WHERE event_id IN (2, 6)";
 
 				$result = mysqli_query($conn, $query);
@@ -99,7 +99,10 @@ AddCSS( "index.css" );
 					echo "	{\n";
 					echo "title : '" . $row[2] . "',\n";
 					echo "start : '" . $row[0] . "',\n";
-					echo "end : '" . $row[1] . "'\n";
+					echo "end : '" . $row[1] . "',\n";
+                    if (((int) $row[5]) === 6) { // if it is a Freshman event
+                        echo "url: '/event.php?type=" . urlencode($row[5]) . "&id=" . urlencode($row[6]) . "',\n";
+                    }
 					echo "	}\n";
 					echo "	],\n";
 					echo "color: '" . $row[3] . "',\n";

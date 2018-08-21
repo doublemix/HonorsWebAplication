@@ -15,7 +15,7 @@ if(($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SE
 <script type="text/javascript">
 
 function showMessage(result, success){
-	 if(result === "success"){
+	 if(result === "success" || success){
 		  $("#error_area").queue(function(){
 		  $("#error_area").text(success);
 		  $("#error_area").css("color", "green");
@@ -201,8 +201,6 @@ $(document).ready (function(){
 
 	$('#sem_select').trigger('change');
 
-	});
-
 
     // Set up RSVP table
 	const rsvpGrid = $('#grid-command-buttons-rsvp').bootgrid({
@@ -267,7 +265,7 @@ $(document).ready (function(){
                         if (data === 'success') {
                             $("#grid-command-buttons-acad_event_att").bootgrid("reload");
                             $("#grid-command-buttons-rsvp").bootgrid("reload");
-                            showMessage("RSVP deleted");
+                            showMessage("RSVP deleted", true);
                         } else {
                             // do nothing
                         }
@@ -283,7 +281,7 @@ $(document).ready (function(){
             $("#rsvp-list-container").hide();
         }
     });
-
+ });
 
 </script>
 

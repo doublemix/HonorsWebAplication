@@ -39,6 +39,7 @@ require_once '../semester_tables/create_pif_stats_table.inc';
 require_once '../semester_tables/create_pif_table.inc';
 require_once '../semester_tables/create_events_table.inc';
 require_once '../semester_tables/create_cce_rsvp_table.inc';
+require_once '../semester_tables/create_fdg_cce_rsvp_table.inc';
 
 //Bring in the Views created using the tables
 require_once '../views/dates_view.inc';
@@ -260,9 +261,11 @@ function createTables($prefix, $conn){
                                                                                     if(createPifStatsTable($conn, $prefix) === true){
                                                                                         if(createEventsTable($conn, $prefix) === true){
                                                                                             if (createCceRsvpTable($conn, $prefix) === true){
-                                                                                                if(createDatesView($conn, $prefix) === true){
-                                                                                                    if(createStatsView($conn, $prefix) === true){
-                                                                                                        return true;
+                                                                                                if (createFdgCceRsvpTable($conn, $prefix) === true) {
+                                                                                                    if(createDatesView($conn, $prefix) === true){
+                                                                                                        if(createStatsView($conn, $prefix) === true){
+                                                                                                            return true;
+                                                                                                        }
                                                                                                     }
                                                                                                 }
                                                                                             }
