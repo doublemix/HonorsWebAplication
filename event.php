@@ -20,11 +20,52 @@ $eventId = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
  * 6 = FDG Event
  */
 
-if ($type !== 5) {
-    // Only showing this page for CCEs, redirect to index therwie
+if (!($type === 5 || $type === 6)) {
+    // Only showing this page for CCEs and Freshman CCE, redirect to index otherwise
     header("Location: index.php");
     die();
 }
+
+$typeParameters = [
+    5 => [
+        "requestName" => "eventrsvprequest",
+        "eventTable" => [
+            "name" => "academicevents",
+            "title" => "acad_title",
+            "desc" => "acad_description",
+            "startDate" => "acad_start_date",
+            "id" => "acad_id",
+        ],
+        "rsvpTable" => [
+            "name" => "cce_rsvp",
+            "eventId" => "acad_id",
+        ],
+        "attdTable" => [
+            "name" => "academicevent_attendence",
+            "id" => "acad_att_id",
+            "eventId" => "acad_id",
+        ],
+    ],
+    6 => [
+        "requestName" => "fdgeventrsvprequest",
+        "eventTable" => [
+            "name" => "fdg_event",
+            "title" => "pfdg_event_name",
+            "desc" => "pfdg_event_description",
+            "startDate" => "pfdg_start_date",
+            "id" => "pfdg_event_id",
+        ],
+        "rsvpTable" => [
+            "name" => "fdg_cce_rsvp",
+            "eventId" => "event_id",
+        ],
+        "attdTable" => [
+            "name" => "fdg_event_attendence",
+            "id" => "pfdg_eve_att_id",
+            "eventId" => "pfdg_event_id",
+        ],
+    ],
+][$type];
 
 $loggedIn = getPermissions($conn);
 
@@ -36,15 +77,19 @@ if ($loggedIn) {
     $isAdmin = false;
 }
 
-$academiceventsTable = DB_getPrefixedTable("academicevents");
+$table = DB_getPrefixedTable($typeParameters["eventTable"]["name"]);
+$titleCol = $typeParameters["eventTable"]["title"];
+$descCol = $typeParameters["eventTable"]["desc"];
+$startDateCol = $typeParameters["eventTable"]["startDate"];
+$idCol = $typeParameters["eventTable"]["id"];
 
 $sql = "SELECT "
-    . "acad_title AS `title`, "
-    . "acad_description AS `desc`, "
-    . "DATE_FORMAT(acad_start_date, '%W, %M %D, %Y - %l:%i %p') AS `start`, " // the formatted text for output
-    . "acad_start_date AS `start_date`" // the standardized text to be parsed
-    . "FROM $academiceventsTable "
-    . "WHERE acad_id = $eventId "
+    . "$titleCol AS `title`, "
+    . "$descCol AS `desc`, "
+    . "DATE_FORMAT($startDateCol, '%W, %M %D, %Y - %l:%i %p') AS `start`, " // the formatted text for output
+    . "$startDateCol AS `start_date`" // the standardized text to be parsed
+    . "FROM $table "
+    . "WHERE $idCol = $eventId "
     . "LIMIT 1";
 $cce = DB_executeAndFetchOne($sql);
 
@@ -57,14 +102,15 @@ if ($loggedIn && !$isAdmin && $cceStart > $now) {
     $canRsvp = true;
 
     $currentstudentsTable = DB_getPrefixedTable("currentstudents");
-    $cceRsvpTable = DB_getPrefixedTable("cce_rsvp");
+    $cceRsvpTable = DB_getPrefixedTable($typeParameters["rsvpTable"]["name"]);
+    $eventIdCol = $typeParameters["rsvpTable"]["eventId"];
 
     $rsvpSql = "SELECT "
         . "rsvp.rsvp_id "
         . "FROM users usr "
         . "JOIN $currentstudentsTable pstu ON (usr.usr_id = pstu.pstu_id) "
         . "JOIN $cceRsvpTable rsvp ON (pstu.pstu_id = rsvp.pstu_id) "
-        . "WHERE rsvp.acad_id = $eventId AND usr.usr_id = $userId "
+        . "WHERE rsvp.$eventIdCol = $eventId AND usr.usr_id = $userId "
         . "LIMIT 1";
 
     $isRsvpd = count(DB_executeAndFetchAll($rsvpSql)) === 1;
@@ -74,24 +120,28 @@ if ($loggedIn && !$isAdmin && $cceStart > $now) {
 }
 
 if ($loggedIn) {
-    $attendenceTable = DB_getPrefixedTable('academicevent_attendence');
-    $isAttend = count(DB_executeAndFetchOne("SELECT acad_att_id FROM $attendenceTable "
-        . "WHERE pstu_id = $userId AND acad_id = $eventId "
+    $attendenceTable = DB_getPrefixedTable($typeParameters["attdTable"]["name"]);
+    $attdIdCol = $typeParameters["attdTable"]["id"];
+    $eventIdCol = $typeParameters["attdTable"]["eventId"];
+    $isAttend = count(DB_executeAndFetchOne("SELECT $attdIdCol AS `id` FROM $attendenceTable "
+        . "WHERE pstu_id = $userId AND $eventIdCol = $eventId "
         . "LIMIT 1")) > 0;
 } else {
     $isAttend = false;
 }
 
 if ($isAdmin) {
-    $rsvpTable = DB_getPrefixedTable("cce_rsvp");
+    $rsvpTable = DB_getPrefixedTable($typeParameters["rsvpTable"]["name"]);
     $studentsTable = DB_getPrefixedTable("currentstudents");
+    $eventIdCol = $typeParameters["rsvpTable"]["eventId"];
+
     $attendanceSheet = DB_executeAndFetchAll(
         "SELECT "
         . "CONCAT(users.usr_fname, ' ', users.usr_lname) AS `name` "
         . "FROM $rsvpTable rsvp "
         . "JOIN $studentsTable pstu ON rsvp.pstu_id = pstu.pstu_id "
         . "JOIN users ON pstu.pstu_id = users.usr_id "
-        . "WHERE rsvp.acad_id = $eventId "
+        . "WHERE rsvp.$eventIdCol = $eventId "
         . "ORDER BY `name`"
     );
 }
@@ -136,7 +186,7 @@ Body_CreateStickyNav();
         if ($isRsvpd) {
             ?><button type="button" disabled="true" class="btn btn-primary">You are RSVP'd for this event</button><?php
         } else { ?>
-            <button id="rsvp_btn" type="submit" class="btn btn-primary" onclick="doRsvp();">RSVP for this event</button> <span id="message-box"></span>
+            <button id="rsvp_btn" type="submit" class="btn btn-primary">RSVP for this event</button> <span id="message-box"></span>
             <input id="rsvp_validator" type="hidden" name="eventrsvprequest" value="on">
             <input id="rsvp_opcode" type="hidden" name="opcode" value="add-rsvp">
             <input id="rsvp_event_id" type="hidden" name="event_id" value="<?php echo $eventId ?>">
@@ -154,7 +204,7 @@ Body_CreateStickyNav();
 
                     $.ajax({
                         type: 'POST',
-                        url: "SCRIPTS/requests/eventrsvprequest.php",
+                        url: "SCRIPTS/requests/<?php echo $typeParameters["requestName"]; ?>.php",
                         data: formData,
                         cache: false,
                         dataType: "text",
