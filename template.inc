@@ -11,6 +11,8 @@
 
 require_once "SCRIPTS/constants.php";
 
+const CACHE_BUST = '001';
+
 function HTML_StartHead(){
 		echo "<!DOCTYPE html>\n";
 		echo "<html>\n";
@@ -23,7 +25,7 @@ function AddTitle( $title ){
 }
 
 function AddCSS( $cssfile ){
-	echo "<link href=\"CSS/".$cssfile."\" rel=\"stylesheet\" media=\"screen\">\n";
+	echo "<link href=\"CSS/".$cssfile."?vc=".CACHE_BUST."\" rel=\"stylesheet\" media=\"screen\">\n";
 }
 
 function HTML_EndHead(){
@@ -53,7 +55,7 @@ function Body_CreateSideNav(){
 
 function Body_CreateHeader( $headertext ){
 	echo "<header>\n";
-	echo "<img class=\"logo\" src=\"IMG/ghp_logo_second_smaller.png\">\n";
+	echo "<img class=\"logo\" src=\"IMG/ghp_logo_second_smaller.png?vc=".CACHE_BUST."\">\n";
 	echo "<h3>".$headertext."</h3>\n";
 	echo "</header>\n";
 }
@@ -96,7 +98,7 @@ function Body_CreateStickyNav(){
 }
 
 function Body_AddScript( $jsfile ){
-	echo "<script src=\"JS/".$jsfile."\"></script>\n";
+	echo "<script src=\"JS/".$jsfile."?vc=".CACHE_BUST."\"></script>\n";
 }
 
 function HTML_End(){
