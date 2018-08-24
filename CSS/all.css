@@ -70,12 +70,13 @@ ul.topnav li a, .dropbtn {
   display: inline-block;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 6px 10px;
   text-decoration: none;
   transition: 0.3s;
   font-size: 1em;
   border-top: 4px solid white;
   border-right: 4px solid white;
+  line-height: 20px;
 }
 
 ul.topnav li a:hover, .ldropdown:hover .dropbtn {background-color: #111}
