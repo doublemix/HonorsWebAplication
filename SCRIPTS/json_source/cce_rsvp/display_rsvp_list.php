@@ -34,10 +34,9 @@ if ($conn != false) {
         $current = (int) removeslashes($_POST["current"]);
     }
 
-    // dangerous, unused
-//    if (isset($_POST["searchPhrase"])) {
-//        $searchPhrase = removeslashes($_POST["searchPhrase"]);
-//    }
+    if (isset($_POST["searchPhrase"])) {
+        $searchPhrase = $conn->real_escape_string($_POST["searchPhrase"]);
+    }
 
     if (isset($_POST["sort"]) && is_array($_POST["sort"])) {
         $order = "";

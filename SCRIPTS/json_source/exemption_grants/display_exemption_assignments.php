@@ -38,7 +38,7 @@ if ($conn != false) {
 	}
 
 	if (isset ( $_POST ["searchPhrase"] )) {
-		$searchPhrase = removeslashes ( $_POST ["searchPhrase"] );
+		$searchPhrase = $conn->real_escape_string ( $_POST ["searchPhrase"] );
 	}
 
 	if (isset ( $_POST ['sort'] ) && is_array ( $_POST ['sort'] )) {
