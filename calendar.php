@@ -105,7 +105,7 @@ AddCSS( "index.css" );
 					echo "title : '" . $row[2] . "',\n";
 					echo "start : '" . $row[0] . "',\n";
 					echo "end : '" . $row[1] . "',\n";
-                    if (((int) $row[5]) === 5) {
+                    if (((int) $row[5]) === 5 || ((int) $row[5]) === 4) {
                         echo "url: '/event.php?type=" . urlencode($row[5]) . "&id=" . urlencode($row[6]) . "',\n";
                     }
 					echo "	}\n";

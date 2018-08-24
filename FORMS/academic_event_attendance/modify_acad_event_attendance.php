@@ -227,7 +227,7 @@ $(document).ready (function(){
         rsvpGrid.find('.command-attend').on('click', function (e) {
             $.ajax({
                 type: 'POST',
-                url: '/SCRIPTS/requests/eventrsvprequest.php',
+                url: '/SCRIPTS/requests/ccersvprequest.php',
                 data: {
                     eventrsvprequest: true,
                     opcode: 'attend',
@@ -252,7 +252,7 @@ $(document).ready (function(){
             if (confirm("Are you sure you want to remove this student from the RSVP list?")) {
                 $.ajax({
                     type: 'POST',
-                    url: '/SCRIPTS/requests/eventrsvprequest.php',
+                    url: '/SCRIPTS/requests/ccersvprequest.php',
                     opcode: 'delete',
                     data: {
                         eventrsvprequest: true,

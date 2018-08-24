@@ -217,14 +217,15 @@ $(document).ready(function() {
  echo "  </ul>\n";
  echo " </li>";
 
- /**if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][10] == 1){
+ if($_SESSION["permissions"][0] == 1 || $_SESSION["permissions"][1] == 1 || $_SESSION["permissions"][10] == 1){
  	echo " <li>Events\n";
  	echo "  <ul>\n";
  	echo "   <li data-linkhtml = \"events/add_event.php\">Add Event</li>\n";
  	echo "   <li data-linkhtml = \"events/update_event.php\">Modify Events</li>\n";
+    echo "   <li data-linkhtml = \"events/event_rsvps.php\">Event RSVP Lists</li>\n";
  	echo "  </ul>\n";
  	echo " </li>\n";
- }**/
+ }
 
 echo " <li>Exemptions\n";
 echo "    <ul>\n";

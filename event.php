@@ -20,7 +20,7 @@ $eventId = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
  * 6 = FDG Event
  */
 
-if (!($type === 5 || $type === 6)) {
+if (!($type === 5 || $type === 6 || $type === 4)) {
     // Only showing this page for CCEs and Freshman CCE, redirect to index otherwise
     header("Location: index.php");
     die();
@@ -28,7 +28,7 @@ if (!($type === 5 || $type === 6)) {
 
 $typeParameters = [
     5 => [
-        "requestName" => "eventrsvprequest",
+        "requestName" => "ccersvprequest",
         "eventTable" => [
             "name" => "academicevents",
             "title" => "acad_title",
@@ -65,6 +65,21 @@ $typeParameters = [
             "eventId" => "pfdg_event_id",
         ],
     ],
+    4 => [
+        "requestName" => "eventrsvprequest",
+        "eventTable" => [
+            "name" => "events",
+            "title" => "event_title",
+            "desc" => "event_description",
+            "startDate" => " event_start_date",
+            "id" => "event_id",
+        ],
+        "rsvpTable" => [
+            "name" => "event_rsvp",
+            "eventId" => "event_id",
+        ],
+        "attdTable" => null,
+    ]
 ][$type];
 
 $loggedIn = getPermissions($conn);
@@ -119,7 +134,7 @@ if ($loggedIn && !$isAdmin && $cceStart > $now) {
     $isRsvpd = false;
 }
 
-if ($loggedIn) {
+if ($loggedIn && $typeParameters["attdTable"] !== null) {
     $attendenceTable = DB_getPrefixedTable($typeParameters["attdTable"]["name"]);
     $attdIdCol = $typeParameters["attdTable"]["id"];
     $eventIdCol = $typeParameters["attdTable"]["eventId"];
