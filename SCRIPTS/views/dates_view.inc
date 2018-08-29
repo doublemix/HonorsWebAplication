@@ -2,7 +2,8 @@
 
 function createDatesView($conn, $prefix){
 
-	$sql = "CREATE VIEW IF NOT EXISTS $prefix" . "_dates
+	$sql = "
+        CREATE VIEW IF NOT EXISTS $prefix" . "_dates
 			AS
 				SELECT
 					pif_start_date AS \"start\",
@@ -21,7 +22,7 @@ function createDatesView($conn, $prefix){
 					pfdg_report_end_date AS \"end\",
 					fdg_name AS \"title\",
 					2 AS \"event_id\",
-					fdg_id AS \"group\",
+					pfdg_report_id AS \"group\",
 					fdg_bg_color AS \"back_color\",
 					fdg_ft_color AS \"font_color\"
 				FROM
@@ -78,8 +79,15 @@ function createDatesView($conn, $prefix){
 					$prefix" . "_fdg_event
 			";
 
+                    // altering this view, so need to drop it in older tables.
+                    if(!$result = mysqli_query($conn, "DROP VIEW IF EXISTS {$prefix}_dates;")) {
+						echo "\n<p>There was an error creating the Events View";
+						echo "Please contact the System Administrator</p>";
+						return false;
+                    } else {
+                        mysqli_free_result($result);
+                    }
 					if(!$result = mysqli_query($conn, $sql)){
-
 						echo "\n<p>There was an error creating the Events View";
 						echo "Please contact the System Administrator</p>";
 						return false;

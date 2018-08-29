@@ -20,8 +20,8 @@ $eventId = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
  * 6 = FDG Event
  */
 
-if (!($type === 5 || $type === 6 || $type === 4)) {
-    // Only showing this page for CCEs and Freshman CCE, redirect to index otherwise
+if (!in_array($type, [2, 4, 5, 6])) {
+    // Only show this page for the only event types still in use
     header("Location: index.php");
     die();
 }
@@ -71,7 +71,7 @@ $typeParameters = [
             "name" => "events",
             "title" => "event_title",
             "desc" => "event_description",
-            "startDate" => " event_start_date",
+            "startDate" => "event_start_date",
             "id" => "event_id",
         ],
         "rsvpTable" => [
@@ -79,7 +79,19 @@ $typeParameters = [
             "eventId" => "event_id",
         ],
         "attdTable" => null,
-    ]
+    ],
+    2 => [
+        "requestName" => null,
+        "eventTable" => [
+            "name" => "fdg_reports reports", // hacking in an alias (since table name is constructed, alias will always be same (used in subquery))
+            "title" => "(SELECT fdg_name FROM fdg WHERE fdg.fdg_id = reports.pfdg_id LIMIT 1)", // hack in a sub
+            "desc" => "pfdg_report_description",
+            "startDate" => "pfdg_report_start_date",
+            "id" => "pfdg_report_id",
+        ],
+        "rsvpTable" => null,
+        "attdTable" => null,
+    ],
 ][$type];
 
 $loggedIn = getPermissions($conn);
@@ -112,7 +124,7 @@ $cceStart = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $cce['start_date
 $now = new \DateTimeImmutable();
 
 // if logged in and is not an admin (the admin cannot register for events) and time has not passed
-if ($loggedIn && !$isAdmin && $cceStart > $now) {
+if ($typeParameters["rsvpTable"] !== null && $loggedIn && !$isAdmin && $cceStart > $now) {
 
     $canRsvp = true;
 
@@ -145,7 +157,7 @@ if ($loggedIn && $typeParameters["attdTable"] !== null) {
     $isAttend = false;
 }
 
-if ($isAdmin) {
+if ($typeParameters["rsvpTable"] !== null && $isAdmin) {
     $rsvpTable = DB_getPrefixedTable($typeParameters["rsvpTable"]["name"]);
     $studentsTable = DB_getPrefixedTable("currentstudents");
     $eventIdCol = $typeParameters["rsvpTable"]["eventId"];

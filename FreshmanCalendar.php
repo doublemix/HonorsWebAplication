@@ -100,7 +100,7 @@ AddCSS( "index.css" );
 					echo "title : '" . $row[2] . "',\n";
 					echo "start : '" . $row[0] . "',\n";
 					echo "end : '" . $row[1] . "',\n";
-                    if (((int) $row[5]) === 6) { // if it is a Freshman event
+                    if (in_array((int) $row[5], [2, 6])) { // if it is a Freshman event or Report (FDG meeting)
                         echo "url: '/event.php?type=" . urlencode($row[5]) . "&id=" . urlencode($row[6]) . "',\n";
                     }
 					echo "	}\n";
